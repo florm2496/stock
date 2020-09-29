@@ -14,7 +14,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">ACCIONES:</div>
-                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="{% url 'vino:creareserva' %}">Nueva</a>
                       <a class="dropdown-item" href="#">Another action</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Something else here</a>
@@ -41,7 +41,7 @@
         <td>{{reserva.descripcion}}</td>
         
         <td>
-            <a href="" class="btn btn-warning btn-circle " role="button" ><i class="far fa-edit"></i></a>
+            <a href="{% url 'vino:reservaupdate' reserva.id %}" class="btn btn-warning btn-circle " role="button" ><i class="far fa-edit"></i></a>
             <a href="" class="btn btn-warning btn-circle " role="button" ><i class="far fa-trash-alt"></i></a>
         </td>
     </tr>
@@ -58,7 +58,10 @@
 {% endblock page_content %}
 
 {% block js_page %}
-    
+   <script>
+     
+$(document).ready(function(){
+  $('.table').DataTable();
+});
+   </script>
 {% endblock js_page %}
-    
-    

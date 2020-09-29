@@ -7,14 +7,14 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">LISTADO DE BODEGAS</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">LISTADO DE VINOS</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">ACCIONES:</div>
-                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" onclick="return abrir_modal('{% url 'vino:crearvino' %}')">Nuevo</a>
                       <a class="dropdown-item" href="#">Another action</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Something else here</a>
@@ -37,6 +37,8 @@
      <th>medida</th>
      <th>descripcion</th>
      <th>precio</th>
+     <th>existencia</th>
+     <th>ultimacompra</th>
      <th>stock minimo</th>
     <th class="all">acciones</th>
                     </thead>
@@ -52,9 +54,11 @@
         <td>{{item.unidad}}</td>
         <td>{{item.descripcion}}</td>
         <td>{{item.precioventa}}</td>
+        <td>{{item.existencia}}</td>
+        <td>{{item.ultimacompra}}</td>
         <td>{{item.sm}}</td>
         <td>
-            <a href="" class="btn btn-warning btn-circle " role="button" ><i class="far fa-edit"></i></a>
+          <button type="submit" class="btn btn-warning btn-circle " role="button" onclick="return abrir_modal('{%url 'vino:vinoupdate' item.id %} ')"><i class="far fa-edit"></i></button>
             <a href="" class="btn btn-warning btn-circle " role="button" ><i class="far fa-trash-alt"></i></a>
         </td>
     </tr>

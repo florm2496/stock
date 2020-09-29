@@ -1,5 +1,5 @@
 from django.db import models
-
+from bases.models import ClaseModelo
 class Unidad(models.Model):
     medida=models.CharField(max_length=10)
     def __str__(self):
@@ -19,6 +19,8 @@ class Reserva(models.Model):
 class Cepa(models.Model):
     nombre=models.CharField(max_length=30)
     descripcion=models.CharField(max_length=100 , blank=True ,null=True)
+    estado=models.BooleanField(default=True)
+
     def __str__(self):
         return self.nombre
 # Create your models here.
@@ -32,6 +34,8 @@ class Vino(models.Model):
     bodega=models.ForeignKey(Bodega , on_delete=models.CASCADE)
     cepa=models.ForeignKey(Cepa, on_delete=models.CASCADE)
     unidad=models.ForeignKey(Unidad, on_delete=models.CASCADE)
+    existencia=models.IntegerField(default=0)
+    ultimacompra=models.DateField(blank=True , null=True)
     sm=models.IntegerField(blank=True , null=True)
 
     def __str__(self):

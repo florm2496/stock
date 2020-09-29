@@ -18,7 +18,8 @@
 
   <!-- Custom styles for this template-->
   <link href="{% static 'base/css/sb-admin-2.min.css' %}" rel="stylesheet">
-
+  <link href="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+<link  href="{% static 'base/vendor/jquery_confirm/jquery-confirm.min.css' %}'">
 </head>
 
 <body id="page-top">
@@ -68,10 +69,21 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">CATALOGOS DE INVENTARIO</h6>
+            {% if perms.vino.view_cepa %}
             <a class="collapse-item" href="{% url 'vino:cepas' %}">Cepas</a>
-            <a class="collapse-item" href="cards.html">Bodegas</a>
-            <a class="collapse-item" href="cards.html">Reservas</a>
-            <a class="collapse-item" href="cards.html">Unidad</a>
+            {% endif %}
+            {% if perms.vino.change_bodega %}
+            <a class="collapse-item" href="{% url 'vino:bodegas' %}">Bodegas</a>
+            {% endif %}
+            <a class="collapse-item" href="{% url 'vino:reservas' %}">Reservas</a>
+            
+            {% if perms.vino.view_unidad %}
+               
+            <a class="collapse-item" href="{% url 'vino:unidades' %}">Unidades</a>
+            {% endif %}
+            {% if perms.vino.add_vino %}
+            <a class="collapse-item" href="{% url 'vino:vinos' %}">Vinos</a>
+            {% endif %}
           </div>
         </div>
       </li>
@@ -310,8 +322,8 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user}}</span>
+                <img class="img-profile rounded-circle" src="{% static 'base/img/user.png' %}">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -408,10 +420,13 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="popup"></div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="{% static 'base/vendor/jquery/jquery.min.js' %}" ></script>
   <script src="{% static 'base/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <script src="{% static 'base/vendor/jquery_confirm/jquery-confirm.min.js'%}"></script>
 
   <!-- Core plugin JavaScript-->
   <script src="{% static 'base/vendor/jquery-easing/jquery.easing.min.js'%}"></script>
@@ -419,11 +434,34 @@
   <!-- Custom scripts for all pages-->
   <script src="{% static 'base/js/sb-admin-2.min.js' %}"></script>
   
+ 
+    
+  <script src="{% static 'base/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
   {% block js_page %}
     
   {% endblock js_page %}
-    
-
+  
+  {% block control_modal %}
+ <script>
+   function abrir_modal(url){
+     $("#popup").load(url , function(){
+      $(this).modal({
+        backdrop:'static',
+        keyboard: false
+      })
+       $(this).modal('show');
+     });
+     }
+     function cerrar_modal()
+     {
+       $('#popup').modal('hide');
+       return false;
+       
+     }
+ </script>
+  {% endblock control_modal %}
+   
 </body>
 
 </html>
