@@ -39,7 +39,7 @@ class Vino(models.Model):
     sm=models.IntegerField(blank=True , null=True)
 
     def __str__(self):
-            return '{}:{}'.format(self.nombre,self.codigo)
+            return '{}'.format(self.nombre)
 class Meta:
         verbose_name_plural = "Productos"
         

@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bases',
     'vino',
+    'compras',
+    'ventas',
     
 ]
 

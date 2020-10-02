@@ -57,7 +57,7 @@ class UnidadNewForm(forms.ModelForm):
 class VinoNewForm(forms.ModelForm):
     class Meta:
         model=Vino
-        fields=['descripcion','codigo','precioventa','foto','reserva','bodega','cepa','unidad','existencia','ultimacompra','sm']
+        fields=['nombre','descripcion','codigo','precioventa','foto','reserva','bodega','cepa','unidad','existencia','ultimacompra','sm']
         #labels={'medida':'Medida'}
         #widget={'descripcion':forms.TextInput}
 
