@@ -21,4 +21,7 @@ urlpatterns = [
     path('',include(('bases.urls' ,'bases'),namespace='bases')),
     path('vino/',include(('vino.urls' ,'vino'),namespace='vino')),
     path('compras/',include(('compras.urls' ,'compras'),namespace='compras')),
+    path('ventas/',include(('ventas.urls' ,'ventas'),namespace='ventas')),
 ]
+
+

@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'vino',
     'compras',
     'ventas',
+    'rest_framework',
+    'apis',
     
 ]
 
