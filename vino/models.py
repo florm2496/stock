@@ -37,6 +37,7 @@ class Vino(models.Model):
     existencia=models.IntegerField(default=0)
     ultimacompra=models.DateField(blank=True , null=True)
     sm=models.IntegerField(blank=True , null=True)
+    
 
     def __str__(self):
             return '{}'.format(self.nombre)

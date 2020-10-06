@@ -5,7 +5,7 @@
     {% csrf_token %}
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <a href="#" class="btn btn-danger">Guardar</a>
+        <a href="#" type="button" class="btn btn-danger">Guardar</a>
         <a href="" class="btn btn-success" target="_factura">Imprimir</a>
         <a href="{% url 'ventas:ventas' %}" class="btn btn-info">Cancelar</a>
     </div>
@@ -103,11 +103,15 @@
                             <input type="number" class="form-control" name="descuento_detalle" id="descuento_detalle" placeholder="Descuento">
                         </div>
                         <div class="col-lg-1">
-                            <button type="submit" class="btn btn-danger" id="btnGuardar"> <i class="far fa-plus-square"></i> </button>
+                            
+                            <button type="button" onclick="calcular_detalle();" class="btn " id="btnGuardar"><i class="fas fa-calculator" aria-hidden="true"></i> </button>
+                           
                         </div>
                     </div>
                     <div class="row p-1">
-                        <div class="col-lg-9 text-right">Sub Total</div>
+                     <div class="col-lg-2"></div>
+                         <div class="col-lg-2">    <button type="button"  class="btn btn-danger" id="btnGuardar"> <i class="far fa-plus-square"></i> </button></div>
+                        <div class="col-lg-5 text-right">Sub Total</div>
                         <div class="col-lg-3">
                             <input type="number" class="form-control" name="sub_total_detalle" id="sub_total_detalle" placeholder="Sub Total"
                              value="0.00" disabled>
@@ -151,15 +155,15 @@
                             {% for item in det%}
                             <tr>
                                 <td>{{ item.id }}</td>
-                                <td>{{ item.producto }}</td>
-                                <td>{{ item.producto.descripcion }}</td>
+                                <td>{{ item.vino }}</td>
+                                <td>{{ item.vino.descripcion }}</td>
                                 <td>{{ item.cantidad }}</td>
                                 <td>{{ item.sub_total }}</td>
                                 <td>{{ item.descuento }}</td>
                                 <td>{{ item.total }}</td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-circle"
-                                    onclick="borrar_detalle({{ item.id }})">
+                                    >
                                     <i class="fas fa-history"></i>
                                 </button>
                             </td>
@@ -169,7 +173,9 @@
                     </table>
                 </div>
             </div>
-            <!-- Fin Detalle -->
+            <!-- Fin Detalle 
+            onclick="borrar_detalle({{ item.id }})"
+            -->
         </div>
     </div>
 </div>
@@ -178,6 +184,100 @@
 
 {% block js_page %}
     <script>
+          function calcular_detalle()
+    {
+        var cant,prec,desc,stotal,total;
+
+        cant = $("#cantidad").val();
+        cant = cant==="" ? 0 : +cant;
+        cant = cant<0 ? 0 : cant;
+
+        prec =$('#precio').val();
+        prec = prec==="" ? 0 : +prec;
+        prec = prec<0 ? 0 : prec;
+
+        desc = $('#descuento_detalle').val();
+        desc = desc==="" ? 0 : +desc;
+        desc = desc<0 ? 0 : desc;
+
+        desc = desc>(cant * prec) ? 0 : desc;
+
+        stotal = cant * prec;
+        total  = stotal - desc;
+
+        $('#cantidad').val(cant);
+        $('#precio').val(prec);
+        $('#descuento_detalle').val(desc);
+
+        $('#sub_total_detalle').val(stotal);
+        $('#total_detalle').val(total);
+
+        console.log("Cantidad " + cant);
+        console.log("prec " + prec);
+        console.log("desc " + desc);
+
+        console.log("sub_total_detalle " + $('#sub_total_detalle').val());
+        console.log("total_detalle " + $('#total_detalle').val());
+
+    }
+
+          function buscarProducto()
+    {
+        if ($("#enc_cliente").val()==="0" || $("#enc_cliente").val()===null){
+            alert("Cliente No Seleccionado",'red');
+            return false;
+        }
+
+        var codigo = $("#codigo").val();
+        if(codigo===""){
+            return false;
+        }
+
+        var path = "{% url 'apis:vinolista' %}" + codigo;
+        $.ajax({
+            type:"GET",
+            url: path,
+            success: function(r){
+                console.log(r);
+                console.log(r.existencia);
+                console.log(r.estado);
+
+                if(r.existencia<=0){
+                    alert("Producto No Tiene Existencia o está inactivo",'orange')
+                    $("#codigo").val("");
+                    $("#descripcion").val("");
+                    $("#precio").val("0.00");
+                    $("#codigo").focus();
+                    return false;
+                }
+
+                $("#codigo").val(r.codigo);
+                $("#descripcion").val(r.descripcion);
+                $("#precio").val(r.precioventa);
+                $("#cantidad").focus();
+
+            },
+            error: function(a,b,c){
+                console.log(a);
+                // console.log(b);
+                // console.log(c);
+                // console.log(a.status)
+                // console.log(a.responseText.detail);
+                // a.responseText["detail"]
+                // mensaje(c,'red');
+                if(a.status==404){
+                    alert("Producto -" + codigo + "- No Encontrado o No Existe",'red');
+                    $("#codigo").val("");
+                    $("#descripcion").val("");
+                    $("#precio").val("0.00");
+                    $("#codigo").focus();
+                }
+
+            }
+
+        });
+    }
+
          $(function () {
         $("#sidebarToggle").click();
         $('#enc_cliente').select2({
@@ -187,10 +287,30 @@
         });
         $("#btnBuscar").click(function(e){
             if ($("#enc_cliente").val()==="0"){
-               
+                alert("Cliente No Seleccionado",'blue');
+                return false;
             }
             abrir_modal("{% url 'ventas:buscar' %}");
         });
+        $("#codigo").keypress(function(e){
+            if(e.keyCode===13){
+                e.preventDefault();
+                buscarProducto();
+            }
+        });
+        $('#cantidad,#precio,#descuento_detalle').change(function(){
+            calcular_detalle();
+        });
+
+
+
+        $("#enc_id").val("{{ enc.id }}");
+      
+      $("#enc_cliente").val("{{ enc.cliente.id }}").change();
+      $("#fecha").val("{{ enc.fecha|date:'Y-m-d' }}");
+      $("#sub_total").val("{{ enc.sub_total }}");
+      $("#descuento").val("{{ enc.descuento }}");
+      $("#total").val({{ enc.total }});
 
         });
          

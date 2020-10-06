@@ -25,7 +25,7 @@
                                   <th data-sortable="true" data-field="codigo_barra">Barra</th>
                                   <th data-field="descripcion">Descripción</th>
                                   <th data-field="existencia">Existencia</th>
-                                  <th data-field="precio">Precio</th>
+                                  <th data-field="precioventa">Precio</th>
                                   <th class="all">Acciones</th>
                                 </thead>
                                 <tbody>
@@ -38,9 +38,11 @@
                                     <td>{{item.existencia}}</td>
                                     <td>{{item.precioventa}}</td>
                                     <td>
-                                        {% if item.existencia > 0 and item.estado %}
+                                     {% if item.existencia > 0 %}
+                                     
+                                
                                      <button class="btn btn-warning btn-circle" id="btnSelect" 
-                                         onclick="seleccionarProducto({{item.id}},'{{item.codigo}}','{{item.descripcion}}',{{item.precio}})">
+                                         onclick="seleccionarProducto({{item.id}},'{{item.codigo}}','{{item.descripcion}}',{{item.precioventa}})">
                                             <i class="far fa-hand-pointer"></i>
                                         </button>
                                         {% endif %}
@@ -82,6 +84,15 @@
     });
     $('#tblProducto').bootstrapTable();
 
+    function seleccionarProducto(id,codigo,descripcion,precioventa){
+        $("#codigo").val(codigo);
+        $("#descripcion").val(descripcion);
+        $("#precio").val(precioventa);
+        $("#btnCancelar").click();
+        $("#codigo").select();
+        $("#codigo").focus();
+
+    }
 
 </script>
 {% endblock %}
