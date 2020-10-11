@@ -43,4 +43,5 @@ class Vino(models.Model):
             return '{}'.format(self.nombre)
 class Meta:
         verbose_name_plural = "Productos"
-        
+
+  

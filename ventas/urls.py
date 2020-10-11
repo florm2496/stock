@@ -7,5 +7,6 @@ urlpatterns = [
     path('clientes/clientedit/<int:pk>' , ClienteEdit.as_view() , name='cliente_edit'),
     path('ventas/' , VentaListView.as_view() , name='ventas'),
     path('ventas/ventanew/' ,Ventas , name='ventanew'),
+    path('ventas/ventaedit/<int:id>' ,Ventas , name='ventaedit'),
     path('ventas/buscar/' ,VinoView.as_view() , name='buscar'),
 ]

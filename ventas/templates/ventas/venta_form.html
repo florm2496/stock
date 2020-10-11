@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-lg-5 form-group">
                                 <select name="enc_cliente" id="enc_cliente" class="form-control">
-                                    <option value="0">Seleccione Cliente</option>
+                                    <option value="1">Seleccione Cliente</option>
                                     {% for item in clientes %}
                                         <option value="{{item.id}}">{{ item.nombre }}</option>
                                     {% endfor %}
@@ -101,6 +101,7 @@
                         </div>
                         <div class="col-lg-3">
                             <input type="number" class="form-control" name="descuento_detalle" id="descuento_detalle" placeholder="Descuento">
+                        
                         </div>
                         <div class="col-lg-1">
                             
@@ -110,7 +111,8 @@
                     </div>
                     <div class="row p-1">
                      <div class="col-lg-2"></div>
-                         <div class="col-lg-2">    <button type="button"  class="btn btn-danger" id="btnGuardar"> <i class="far fa-plus-square"></i> </button></div>
+                     <!--BOTON DE GUARDAR DETALLE-->
+                         <div class="col-lg-2">    <button type="submit"  class="btn btn-danger" onclick="" id="btnGuardar"> <i class="far fa-plus-square"></i> </button></div>
                         <div class="col-lg-5 text-right">Sub Total</div>
                         <div class="col-lg-3">
                             <input type="number" class="form-control" name="sub_total_detalle" id="sub_total_detalle" placeholder="Sub Total"
@@ -123,6 +125,7 @@
                             <input type="number" class="form-control" name="total_detalle" id="total_detalle" placeholder="Total"
                              value="0.00" disabled>
                         </div>
+                        <input type="hidden" class="form-control" name="existencia" id="existencia">             
                     </div>
                 </div>
                 <!-- Fin Sección Derecha -->
@@ -130,6 +133,8 @@
             <!-- Fin Sección Superior -->
             <!-- Inicio Detalle -->
             <hr>
+         
+              
             <div class="row p-1">
                 <div class="col-lg-12">
                     <table
@@ -220,7 +225,9 @@
         console.log("total_detalle " + $('#total_detalle').val());
 
     }
+    
 
+    
           function buscarProducto()
     {
         if ($("#enc_cliente").val()==="0" || $("#enc_cliente").val()===null){
@@ -251,10 +258,13 @@
                     return false;
                 }
 
-                $("#codigo").val(r.codigo);
-                $("#descripcion").val(r.descripcion);
-                $("#precio").val(r.precioventa);
-                $("#cantidad").focus();
+                else{
+                    $("#codigo").val(r.codigo);
+                    $("#descripcion").val(r.descripcion);
+                    $("#precio").val(r.precioventa);
+                    $("#existencia").val(r.existencia)
+                    $("#cantidad").focus();
+                }
 
             },
             error: function(a,b,c){
@@ -313,6 +323,21 @@
       $("#total").val({{ enc.total }});
 
         });
+    
+        $( "form" ).submit(function(event) {
+            var existencia = +$("#existencia").val();
+            var cantidad = +$("#cantidad").val();
+            console.log(cantidad,existencia)
+ 
+            if(cantidad>existencia){
+                alert('La cantidad es mayor a la existencia del producto');
+                return false;
+            }else{
+                alert(existencia);
+            }
+        
+    });
+
          
     </script>
 {% endblock js_page %}

@@ -5,6 +5,9 @@ from django.db.models import Sum
 # Create your models here.
 from bases.models import ClaseModelo
 
+from django.db.models.signals import post_save ,post_delete
+from django.dispatch import receiver
+from django.db.models import Sum
 from vino.models import Vino
 
 NAT='natural'
@@ -71,11 +74,11 @@ class FacturaDet(ClaseModelo):
      #       ('sup_caja_facturadet','Permisos de Supervisor de Caja Detalle')
       #  ]
 
-'''
+
 @receiver(post_save, sender=FacturaDet)
 def detalle_fac_guardar(sender,instance,**kwargs):
     factura_id = instance.factura.id
-    producto_id = instance.producto.id
+    vino_id = instance.vino.id
 
     enc = FacturaEnc.objects.get(pk=factura_id)
     if enc:
@@ -93,9 +96,12 @@ def detalle_fac_guardar(sender,instance,**kwargs):
         enc.descuento = descuento
         enc.save()
 
-    prod=Producto.objects.filter(pk=producto_id).first()
-    if prod:
-        cantidad = int(prod.existencia) - int(instance.cantidad)
-        prod.existencia = cantidad
-        prod.save()
-'''
+    vino=Vino.objects.filter(pk=vino_id).first()
+    
+    if vino:
+        if int(vino.existencia) >= int(instance.cantidad):
+            cantidad = int(vino.existencia) - int(instance.cantidad)
+            vino.existencia = cantidad
+            vino.save()
+        else:
+            print('no hay stock')

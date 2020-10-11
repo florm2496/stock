@@ -9,9 +9,11 @@ from django.http import HttpResponse, JsonResponse
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin ,PermissionRequiredMixin
 from django.http import HttpResponse
 import json
 from django.db.models import Sum
+from django.contrib.auth.decorators import login_required, permission_required
 
 from .models import ComprasEnc, ComprasDet
 from .forms import ComprasEncForm
@@ -21,13 +23,18 @@ from vino.models import Vino
 
 
 
-class ComprasView(generic.ListView):
+class ComprasView(PermissionRequiredMixin,generic.ListView):
     model = ComprasEnc
     template_name = "compras/listacompras.html"
     context_object_name = "obj"
+    permission_required='compras.view_compraenc'
 
 
 
+
+
+@login_required(login_url="/login/")
+@permission_required("compras.view_compraenc",login_url="/login/")
 
 def compras(request,compra_id=None):
     template_name="compras/from2.html"
@@ -89,13 +96,14 @@ def compras(request,compra_id=None):
 
         prod = Vino.objects.get(codigo=producto)
         print('producto',prod.id)
-
+     
         det = ComprasDet(
             compra=enc,
             vino=prod,
             cantidad=cantidad,
             precio=precio,
             uc = request.user
+
         )
 
         if det:
@@ -111,12 +119,12 @@ def compras(request,compra_id=None):
     return render(request, template_name, contexto)
 
 
-class CompraDetDelete(generic.DeleteView):
- #   permission_required = "cmp.delete_comprasdet"
+class CompraDetDelete(PermissionRequiredMixin, generic.DeleteView):
+    
     model = ComprasDet
     template_name = "compras/delete_detcompra.html"
     context_object_name = 'obj'
-    
+    permission_required = "compras.delete_comprasdet"
     def get_success_url(self):
           compra_id=self.kwargs['compra_id']
           return reverse_lazy('compras:editarcompra', kwargs={'compra_id': compra_id})
