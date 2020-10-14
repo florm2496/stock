@@ -18,7 +18,7 @@ TIPO_CLIENTE=[
 ]
 
 class Cliente(ClaseModelo):
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=50, default='casual')
     tipo = models.CharField(max_length=15, choices=TIPO_CLIENTE,default=NAT )
     numero = models.CharField(blank=True,null=True, max_length=50)
     email = models.CharField(blank=True,null=True, max_length=50)

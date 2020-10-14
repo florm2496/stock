@@ -7,10 +7,6 @@ from .forms import CepaNewForm ,BodegaNewForm ,ReservaNewForm,UnidadNewForm,Vino
 from django.urls import reverse_lazy
 
 
-    
- 
-
-
 
 class CepaView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
     model=Cepa
@@ -130,6 +126,19 @@ class VinoNew(PermissionRequiredMixin,LoginRequiredMixin,CreateView):
     success_url=reverse_lazy('vino:vinos')
     login_url='bases:login'
     permission_required='vino.add_vino'
+
+    def get_context_data(self , **kwargs):
+        context=super(VinoNew , self).get_context_data(**kwargs)
+        context['cepa']=Cepa.objects.filter(estado=True)
+        context['bodega']=Bodega.objects.filter(estado=True)
+        context['unidad']=Unidad.objects.filter(estado=True)
+        context['reserva']=Reserva.objects.filter(estado=True)
+        print(context)
+        return context
+
+
+
+
 class VinoUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView): 
     model=Vino
     form_class=VinoNewForm

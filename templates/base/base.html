@@ -90,7 +90,7 @@
             
             <a class="collapse-item" href="{% url 'vino:vinos' %}">Vinos</a>
               
-              {% if perms.compras.view_compraenc %}
+              {% if perms.compras.view_comprasenc %}
               <a class="collapse-item" href="{% url 'compras:listacompras' %}">Compras</a  >
               {% endif %}
                 
@@ -98,7 +98,7 @@
               {% if perms.ventas.view_clientes %}
             <a class="collapse-item" href="{% url 'ventas:clientes' %}">Clientes</a>
             {% endif %}
-            {% if perms.ventas.view_Encabezado_factura %}
+            {% if perms.ventas.view_facturaenc %}
             <a class="collapse-item" href="{% url 'ventas:ventas' %}">Ventas</a>
             {% endif %}
        

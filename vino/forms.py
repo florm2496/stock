@@ -18,8 +18,8 @@ def __init__(self, *args, **kwargs): #SE SOBRESCRIBE EL CONSTRUCTOR DEL FORMULAR
 class BodegaNewForm(forms.ModelForm):
     class Meta:
         model=Bodega
-        fields=['nombre','numero','email']
-        labels={'nombre':'Nombre', 'estado':'Numero','email': 'Email' }
+        fields=['nombre','numero','email' , 'estado']
+        labels={'nombre':'Nombre', 'numero':'Numero','email': 'Email' }
         #widget={'descripcion':forms.TextInput}
 
     def __init__(self, *args, **kwargs): #SE SOBRESCRIBE EL CONSTRUCTOR DEL FORMULARIO
@@ -31,7 +31,7 @@ class BodegaNewForm(forms.ModelForm):
 class ReservaNewForm(forms.ModelForm):
     class Meta:
         model=Reserva
-        fields=['tipo','descripcion']
+        fields=['tipo','descripcion' ,'estado']
         labels={'tipo':'Tipo', 'descripcion':'Descripcion' }
         #widget={'descripcion':forms.TextInput}
 
@@ -44,7 +44,7 @@ class ReservaNewForm(forms.ModelForm):
 class UnidadNewForm(forms.ModelForm):
     class Meta:
         model=Unidad
-        fields=['medida']
+        fields=['medida','estado']
         labels={'medida':'Medida'}
         #widget={'descripcion':forms.TextInput}
 
@@ -57,7 +57,7 @@ class UnidadNewForm(forms.ModelForm):
 class VinoNewForm(forms.ModelForm):
     class Meta:
         model=Vino
-        fields=['nombre','descripcion','codigo','precioventa','foto','reserva','bodega','cepa','unidad','existencia','ultimacompra','sm']
+        fields=['nombre','descripcion','codigo','precioventa','foto','reserva','bodega','cepa','unidad','existencia','ultimacompra','sm','estado' ]
         #labels={'medida':'Medida'}
         #widget={'descripcion':forms.TextInput}
 

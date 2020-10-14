@@ -27,14 +27,14 @@ class ComprasView(PermissionRequiredMixin,generic.ListView):
     model = ComprasEnc
     template_name = "compras/listacompras.html"
     context_object_name = "obj"
-    permission_required='compras.view_compraenc'
+    permission_required='compras.view_comprasenc'
 
 
 
 
 
 @login_required(login_url="/login/")
-@permission_required("compras.view_compraenc",login_url="/login/")
+@permission_required("compras.view_comprasenc",login_url="/login/")
 
 def compras(request,compra_id=None):
     template_name="compras/from2.html"

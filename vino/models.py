@@ -1,22 +1,24 @@
 from django.db import models
-from bases.models import ClaseModelo
-class Unidad(models.Model):
+from bases.models import ClaseModelo2 , ClaseModelo
+
+
+class Unidad(ClaseModelo2):
     medida=models.CharField(max_length=10)
     def __str__(self):
          return self.medida
-class Bodega(models.Model):
+class Bodega(ClaseModelo2):
     nombre=models.CharField(max_length=30)
     numero=models.CharField(max_length=30, blank=True ,null=True)
     email=models.CharField(max_length=30 ,blank=True ,null=True)
     def __str__(self):
         return self.nombre
-class Reserva(models.Model):
+class Reserva(ClaseModelo2):
     tipo=models.CharField(max_length=20)
     descripcion=models.CharField(max_length=50, blank=True ,null=True)
     def __str__(self):
         return self.tipo
 
-class Cepa(models.Model):
+class Cepa(ClaseModelo2):
     nombre=models.CharField(max_length=30)
     descripcion=models.CharField(max_length=100 , blank=True ,null=True)
     estado=models.BooleanField(default=True)
@@ -24,7 +26,7 @@ class Cepa(models.Model):
     def __str__(self):
         return self.nombre
 # Create your models here.
-class Vino(models.Model):
+class Vino(ClaseModelo2):
     nombre=models.CharField(max_length=40)
     descripcion=models.CharField(max_length=100 , blank=True ,null=True)
     codigo=models.CharField(max_length=30 ,unique=True)

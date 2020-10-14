@@ -30,7 +30,15 @@
                                 <input type="text" name="descripcion" maxlength="100" class="form-control m-1" required id="id_descripcion" placeholder="Descripcion"
                                 value="{% if obj %} {{ obj.descripcion }} {% endif %}">
                             </div>
+
                         </div>
+                        <div class="col-2">
+                            <div class="form-group m-1">
+                                <label for="id_estado">Estado</label>
+                                <input type="checkbox" name="estado" class="form-control" id="id_estado"
+                                {% if obj.estado %} checked {% endif %}  >
+                            </div>
+                        </div> 
                       
                       
                     </div>

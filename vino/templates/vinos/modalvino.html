@@ -24,9 +24,125 @@
                             <div class="dropdown-divider"></div>
                             {% csrf_token %}
                             <div class="row">
-                            {{form.as_p}}
-                    
-            
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-6">{{form.nombre.label}}</div>
+                                        <div class="col-md-6">{{form.nombre}}</div>
+                                    </div>
+        
+                                    <div class="col-md-6">
+                                        <div class="col-md-6">{{form.codigo.label}}</div>
+                                        <div class="col-md-6">{{form.codigo}}</div>    
+                                    </div>                            
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-6">{{form.descripcion.label}}</div>
+                                    <div class="col-md-6">{{form.descripcion}}</div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="col-md-6">{{form.estado.label}}</div>
+                                    <div class="col-md-6">{{form.estado}}</div>    
+                                </div>                            
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-6">{{form.precioventa.label}}</div>
+                                    <div class="col-md-6">{{form.precioventa}}</div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="col-md-6">{{form.foto.label}}</div>
+                                    <div class="col-md-6">{{form.foto}}</div>    
+                                </div>                            
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-6">{{form.sm.label}}</div>
+                                    <div class="col-md-6">{{form.sm}}</div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="col-md-6">{{form.ultimacompra.label}}</div>
+                                    <div class="col-md-6">{{form.ultimacompra}}</div>    
+                                </div>                            
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-6">{{form.existencia.label}}</div>
+                                    <div class="col-md-6">{{form.existencia }}</div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                   
+                 
+                                </div>                            
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-6">Bodega</div>
+                                    <div class="col-md-6">
+                                        <select name="bodega" id="id_bodega" class="form-control from-control-sm">
+                                            <option value="0">-----------</option>
+                                            
+                                            {% for item in bodega  %}
+                                            <option value="{{item.id}}">{{item.nombre}}</option>
+                        
+                                            {% endfor %}
+                                                
+                                        </select>
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="col-md-6">Reserva</div>
+                                    <div class="col-md-6">
+                                        <select name="reserva" id="id_reserva" class="form-control from-control-sm">
+                                            <option value="0">-----------</option>
+                                            
+                                            {% for item in reserva  %}
+                                            <option value="{{item.id}}">{{item.tipo}}</option>
+                        
+                                            {% endfor %}
+                                                
+                                        </select>
+                                    </div>
+                 
+                                </div>                            
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-6">Unidad</div>
+                                    <div class="col-md-6">
+                                        <select name="unidad" id="id_unidad" class="form-control from-control-sm">
+                                            <option value="0">-----------</option>
+                                            
+                                            {% for item in unidad  %}
+                                            <option value="{{item.id}}">{{item.medida}}</option>
+                        
+                                            {% endfor %}
+                                                
+                                        </select>
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="col-md-6">Cepa</div>
+                                    <div class="col-md-6">
+                                        <select name="cepa" id="id_cepa" class="form-control from-control-sm">
+                                            <option value="0">-----------</option>
+                                            
+                                            {% for item in cepa  %}
+                                            <option value="{{item.id}}">{{item.nombre}}</option>
+                        
+                                            {% endfor %}
+                                                
+                                        </select>
+                                    </div>
+                 
+                                </div>                            
                             </div>
                             <div class="dropdown-divider"></div>
                             <div class="row">
@@ -45,5 +161,119 @@
 </div>
 </div>
 
-  
+  <!--
+
+  <div class="row">
+                          
+                           
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.nombre.label}}</div>
+                                            <div class="col-md-6">{{form.nombre}}</div>
+                                        </div>
+            
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.codigo.label}}</div>
+                                            <div class="col-md-6">{{form.codigo}}</div>    
+                                        </div>   
+                                      
+                                                             
+                                    </div>
+                    
+                                    <div class="row">
+                                        <div class="col-md-6" >
+                                            <div class="col-md-6">{{form.descripcion.label}}</div>
+                                            <div class="col-md-6">{{form.descripcion}}</div>
+    
+                                        </div>
+                                        <div class="col-md-6" style="align-content: center;">
+                                            <div class="col-md-6">{{form.estado.label}}</div>
+                                            <div class="col-md-6">{{form.estado}}</div>    
+                                        </div>  
+            
+                                                               
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.precioventa.label}}</div>
+                                            <div class="col-md-6">{{form.precioventa}}</div>
+                                        </div>
+            
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.existencia.label}}</div>
+                                            <div class="col-md-6">{{form.existencia}}</div>    
+                                        </div>                            
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.ultimacompra.label}}</div>
+                                            <div class="col-md-6">{{form.ultimacompra}}</div>
+                                        </div>
+            
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">{{form.sm.label}}</div>
+                                            <div class="col-md-6">{{form.sm}}</div>    
+                                        </div>                            
+                                    </div>
+            
+                             
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">Cepa</div>
+                                            <div class="col-md-6">
+                                                <select name="cepa" id="id_cepa" class="form-control from-control-sm">
+                                                    <option value="0">-------</option>
+                                                    {% for item in cepa %}
+                                                    <option value="{{item.id}}">{{item.nombre}}</option>
+                                                    {% endfor%}
+                                                </select>
+                                            </div>
+                                        </div>
+            
+                                     
+                                            <div class="col-md-12">
+                                            <div class="col-md-6">bodega</div>
+                                            <div class="col-md-6">
+                                                <select name="bodega" id="id_bodega" class="form-control from-control-sm">
+                                                    <option value="0">-------</option>
+                                                    {% for item in bodega %}
+                                                    <option value="{{item.id}}" >{{item.nombre}}</option>
+                                                    {% endfor%}
+                                                </select>
+                                            </div>
+                                        </div>   
+                                                          
+                                    </div>
+                                   
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">unidad</div>
+                                            <div class="col-md-6">
+                                                <select name="unidad" id="id_unidad" class="form-control from-control-sm">
+                                                    <option value="0">-------</option>
+                                                    {% for item in unidad %}
+                                                    <option value="{{item.id}}">{{item.medida}}</option>
+                                                    {% endfor%}
+                                                </select>
+                                            </div>
+                                        </div>
+            
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">reserva</div>
+                                            <div class="col-md-6">
+                                                <select name="subcategoria" id="id_reserva" class="form-control from-control-sm">
+                                                    <option value="0">-------</option>
+                                                    {% for item in reserva %}
+                                                    <option value="{{item.id}}" >{{item.tipo}}</option>
+                                                    {% endfor%}
+                                                </select>
+                                            </div>
+                                        </div>           
+                                    </div>
+            
+                
+                                </div>
+
+  -->
 

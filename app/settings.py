@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ventas',
     'rest_framework',
     'apis',
+    'django_userforeignkey',
     
 ]
 
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_userforeignkey.middleware.UserForeignKeyMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]

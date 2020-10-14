@@ -56,15 +56,15 @@ class ClienteEdit(VistaBaseEdit):
 
 
 
-class VentaListView(generic.ListView):
+class VentaListView(PermissionRequiredMixin,generic.ListView):
     model = FacturaEnc
     context_object_name='obj'
     template_name = "ventas/ventas.html"
-    permission_required='ventas.view_cliente'
+    permission_required='ventas.view_facturaenc'
 
 #VISTA DE FUNCIONES
 @login_required(login_url="/login/")
-@permission_required("ventas.view_Encabezado_Factura",login_url="/login/")
+@permission_required("ventas.view_facturaenc",login_url="/login/")
 
 def Ventas(request , id=None):
     template_name='ventas/venta_form.html'
