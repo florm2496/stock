@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 
 {% block page_content %}
-<form method="post" id="frmFacturas">
+<form method="post" id="form">
     {% csrf_token %}
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -112,7 +112,7 @@
                     <div class="row p-1">
                      <div class="col-lg-2"></div>
                      <!--BOTON DE GUARDAR DETALLE-->
-                         <div class="col-lg-2">    <button type="submit"  class="btn btn-danger" onclick="" id="btnGuardar"> <i class="far fa-plus-square"></i> </button></div>
+                         <div class="col-lg-2"><button type="submit"  class="btn btn-danger" onclick="" id="btnGuardar"> <i class="far fa-plus-square"></i> </button></div>
                         <div class="col-lg-5 text-right">Sub Total</div>
                         <div class="col-lg-3">
                             <input type="number" class="form-control" name="sub_total_detalle" id="sub_total_detalle" placeholder="Sub Total"
@@ -125,7 +125,8 @@
                             <input type="number" class="form-control" name="total_detalle" id="total_detalle" placeholder="Total"
                              value="0.00" disabled>
                         </div>
-                        <input type="hidden" class="form-control" name="existencia" id="existencia">             
+                        <input type="hidden" class="form-control" name="existencia" id="existencia">
+                        <button onclick="alert(existencia.value)" >boton</button>             
                     </div>
                 </div>
                 <!-- Fin Sección Derecha -->
@@ -147,7 +148,8 @@
                         data-locale="es-NI"
                         >
                         <thead>
-                            <th data-sortable="true" data-field="id">Id.</th>        
+                            <th data-sortable="true" data-field="id">Id.</th>  
+                            <th data-sortable="true" data-field="nombre">Nombre</th>       
                             <th data-sortable="true" data-field="codigo">Código</th>
                             <th data-sortable="true" data-field="descripcion">Descripción</th>
                             <th data-field="cantidad">Cant</th>
@@ -161,6 +163,7 @@
                             <tr>
                                 <td>{{ item.id }}</td>
                                 <td>{{ item.vino }}</td>
+                                <td>{{ item.vino.codigo }}</td>
                                 <td>{{ item.vino.descripcion }}</td>
                                 <td>{{ item.cantidad }}</td>
                                 <td>{{ item.sub_total }}</td>
@@ -231,7 +234,7 @@
           function buscarProducto()
     {
         if ($("#enc_cliente").val()==="0" || $("#enc_cliente").val()===null){
-            alert("Cliente No Seleccionado",'red');
+            mensaje('Cliente no seleccionado' ,'warning')
             return false;
         }
 
@@ -250,8 +253,7 @@
                 console.log(r.estado);
 
                 if(r.existencia<=0){
-                    alert("Producto No Tiene Existencia o está inactivo",'orange')
-                    $("#codigo").val("");
+                    mensaje('Este producto no tiene stock o esta inactivo' ,'error')
                     $("#descripcion").val("");
                     $("#precio").val("0.00");
                     $("#codigo").focus();
@@ -262,7 +264,7 @@
                     $("#codigo").val(r.codigo);
                     $("#descripcion").val(r.descripcion);
                     $("#precio").val(r.precioventa);
-                    $("#existencia").val(r.existencia)
+                    $("#existencia").val(r.existencia);
                     $("#cantidad").focus();
                 }
 
@@ -276,7 +278,7 @@
                 // a.responseText["detail"]
                 // mensaje(c,'red');
                 if(a.status==404){
-                    alert("Producto -" + codigo + "- No Encontrado o No Existe",'red');
+                    mensaje('Producto -" + codigo + "- No Encontrado o No Existe" ' ,"error" )
                     $("#codigo").val("");
                     $("#descripcion").val("");
                     $("#precio").val("0.00");
@@ -288,6 +290,21 @@
         });
     }
 
+    $( "#form" ).submit(function(event) {
+            var existencia = +$("#existencia").val();
+            var cantidad = +$("#cantidad").val();
+            console.log(cantidad,existencia)
+
+            if(cantidad>existencia){
+                mensaje('La cantidad ingresada es mayor al stock disponible , compruebe el stock del producto' ,'','warning')
+               return false;
+            }else{
+        
+            }
+    });
+
+         
+   
          $(function () {
         $("#sidebarToggle").click();
         $('#enc_cliente').select2({
@@ -311,9 +328,6 @@
         $('#cantidad,#precio,#descuento_detalle').change(function(){
             calcular_detalle();
         });
-
-
-
         $("#enc_id").val("{{ enc.id }}");
       
       $("#enc_cliente").val("{{ enc.cliente.id }}").change();
@@ -324,21 +338,6 @@
 
         });
     
-        $( "form" ).submit(function(event) {
-            var existencia = +$("#existencia").val();
-            var cantidad = +$("#cantidad").val();
-            console.log(cantidad,existencia)
- 
-            if(cantidad>existencia){
-                alert('La cantidad es mayor a la existencia del producto');
-                return false;
-            }else{
-                alert(existencia);
-            }
-        
-    });
-
-         
     </script>
 {% endblock js_page %}
     

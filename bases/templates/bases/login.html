@@ -2,17 +2,12 @@
 {% load static %}
 {% block side_bar%}
 {% endblock %} 
-
 {% block top_bar %}
 {% endblock %} 
-
 {% block page_content %}
-
 {% endblock %}
- 
 
 {% block footer %}
-    
 {% endblock %}
     
 {% block login %}
@@ -80,11 +75,7 @@
                       <input type="password" class="form-control form-control-user" name='password' id="id_password" placeholder="Contraseña">
                     </div>
                     <div class="form-group">
-                   <!--  <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember Me</label>
-                      </div>
-                    </div>--> 
+                
                     <button type="submit" class="btn btn-primary btn-user btn-block">Ingresar</button>
                 
                   </form>
@@ -103,4 +94,46 @@
 
   </div>
 {% endblock login %}
+
+{% block js_page %}
+  <script>
+                      
+                      {% if form.errors %}
+                 
+                      {% for fied in form  %}
+                          
+                          {% if field.errors %}
+                          
+                          {% for error in field.errors %}
+                        
+                            mensaje(  '{{ error|escape}}','icon');
+                          {% endfor %}
+                            
+                            
+                          {% endif %}
+                                                    
+                      {% endfor %}
+                        
+                        
+                
+                      {% if form.non_field_errors %}
+                      
+                      {% for error in form.non_field_errors  %}
+                          
+                      mensaje(  '{{ error|escape}}','red');
+                            
+                          
+                            
+                            
+        
+                                                    
+                      {% endfor %}
+                      {% endif %}
+                        
+                      {% endif %}
+                        
+             
+  </script>
+{% endblock js_page %}
+  
     

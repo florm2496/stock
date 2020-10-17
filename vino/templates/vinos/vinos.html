@@ -27,20 +27,33 @@
                  {% if not obj %}
                      No hay vinos
                  {% endif %}
-                 <table class="table table-striped table-hover">
-                    <thead>
-                        <th>nombre</th>
-     <th>Codigo</th>
-     <th>Bodega</th>
-     <th>Reserva</th>
-     <th>Cepa</th>
-     <th>Medida</th>
-     <th>Descripcion</th>
-     <th>Precio</th>
-     <th>Existencia</th>
-     <th>Ultimacompra</th>
-     <th>Stock minimo</th>
-    <th class="all">acciones</th>
+                 <table class="table table-striped table-hover"
+      id="table"
+      data-toggle="table"
+      data-pagination="true"
+      data-search="true"
+      data-show-columns="true"
+      data-show-toggle="true"
+      data-show-fullscreen="true"
+      data-toolbar=".buttons-toolbar"
+      data-locale="es-NI"
+                 
+  
+                 
+                 >
+
+                  <thead>
+                         <th data-sortable="true" data-field="nombre" >nombre</th>
+     <th data-sortable="true" data-field="codigo">Codigo</th>
+     <th data-sortable="true" data-field="bodega">Bodega</th>
+     <th data-sortable="true" data-field="reserva">Reserva</th>
+     <th data-sortable="true" data-field="cepa">Cepa</th>
+     <th data-sortable="true" >Medida</th>
+     <th data-sortable="true" data-field="descripcion">Descripcion</th>
+     <th data-sortable="true" >Precio</th>
+     <th data-sortable="true">Existencia</th>
+     <th data-sortable="true" >Ultimacompra</th>
+    <th class="all" >acciones</th>
                     </thead>
 <tbody>
     
@@ -56,8 +69,16 @@
         <td>{{item.descripcion}}</td>
         <td>{{item.precioventa}}</td>
         <td>{{item.existencia}}</td>
-        <td>{{item.ultimacompra}}</td>
-        <td>{{item.sm}}</td>
+        <td>
+          
+          {% if item.ultimacompra %}
+          {{item.ultimacompra}}
+          {% else %}
+          No hay compras registradas
+            
+          {% endif %}
+            </td>
+      
         <td>
           <button type="submit" class="btn btn-warning btn-circle " role="button" onclick="return abrir_modal('{%url 'vino:vinoupdate' item.id %} ')"><i class="far fa-edit"></i></button>
             <a href="" class="btn btn-warning btn-circle " role="button" ><i class="far fa-trash-alt"></i></a>

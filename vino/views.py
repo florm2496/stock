@@ -3,8 +3,19 @@ from .models import Cepa ,Vino ,Reserva,Bodega ,Unidad
 # Create your views here.
 from django.contrib.auth.mixins import LoginRequiredMixin ,PermissionRequiredMixin
 from django.views.generic import ListView ,UpdateView, CreateView ,TemplateView
-from .forms import CepaNewForm ,BodegaNewForm ,ReservaNewForm,UnidadNewForm,VinoNewForm
+from .forms import CepaNewForm ,ReservaNewForm,UnidadNewForm,VinoNewForm
 from django.urls import reverse_lazy
+#,BodegaNewForm 
+from django.http import HttpResponse, JsonResponse
+
+
+class MixinFormInvalid():
+    def form_invalid(self , form):
+        response=super().form_invalid(form)
+        if self.request.is_ajax():
+            return JsonResponse(form.errors , status=400)
+        else:
+            return response 
 
 
 
@@ -41,7 +52,8 @@ class BodegaView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
     permission_required='vino.view_bodega'
 class BodegaNew(PermissionRequiredMixin,LoginRequiredMixin , CreateView):
     model=Bodega
-    form_class=BodegaNewForm
+    #form_class=BodegaNewForm
+    fields=['nombre' ,'numero' ,'email']
     context_object_name='obj'
     template_name='vinos/crearbodega.html'
     login_url='bases:login'
@@ -49,7 +61,7 @@ class BodegaNew(PermissionRequiredMixin,LoginRequiredMixin , CreateView):
     permission_required='vino.add_bodega'
 class BodegaUpdate(PermissionRequiredMixin,LoginRequiredMixin , UpdateView):
     model=Bodega
-    form_class=BodegaNewForm
+    #form_class=BodegaNewForm
     context_object_name='obj'
     template_name='vinos/crearbodega.html'
     login_url='bases:login'
@@ -118,7 +130,7 @@ class VinoView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
     template_name='vinos/vinos.html'
     login_url='bases:login'
     permission_required='vino.view_vino'
-class VinoNew(PermissionRequiredMixin,LoginRequiredMixin,CreateView): 
+class VinoNew(MixinFormInvalid,PermissionRequiredMixin,LoginRequiredMixin,CreateView): 
     model=Vino
     form_class=VinoNewForm
     context_object_name='obj'
@@ -127,6 +139,11 @@ class VinoNew(PermissionRequiredMixin,LoginRequiredMixin,CreateView):
     login_url='bases:login'
     permission_required='vino.add_vino'
 
+    def form_valid(self, form):
+        form.instance.uc = self.request.user
+        return super().form_valid(form)
+
+    
     def get_context_data(self , **kwargs):
         context=super(VinoNew , self).get_context_data(**kwargs)
         context['cepa']=Cepa.objects.filter(estado=True)
@@ -135,11 +152,7 @@ class VinoNew(PermissionRequiredMixin,LoginRequiredMixin,CreateView):
         context['reserva']=Reserva.objects.filter(estado=True)
         print(context)
         return context
-
-
-
-
-class VinoUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView): 
+class VinoUpdate(MixinFormInvalid,PermissionRequiredMixin,LoginRequiredMixin,UpdateView): 
     model=Vino
     form_class=VinoNewForm
     context_object_name='obj'
@@ -148,3 +161,16 @@ class VinoUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView):
     login_url='bases:login'
     permission_required='vino.change_vino'
     #permission_required='vino.delete_vino'
+    def form_valid(self, form):
+        form.instance.uc = self.request.user
+        return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        context=super(VinoUpdate , self).get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        context['cepa']=Cepa.objects.filter(estado=True)
+        context['bodega']=Bodega.objects.filter(estado=True)
+        context['unidad']=Unidad.objects.filter(estado=True)
+        context['reserva']=Reserva.objects.filter(estado=True)
+        context["obj"] = Vino.objects.filter(pk=pk).first()
+        print(context)
+        return context

@@ -10,13 +10,16 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin e inventario</title>
+  <title>Sistema de stock</title>
 
   <!-- Custom fonts for this template-->
   <link href="{% static 'base/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  
 
-  <!-- Custom styles for this template-->
+  
+  <!-- Custom styles for this templat
+-->
   <link href="{% static 'base/css/sb-admin-2.min.css' %}" rel="stylesheet">
   <link href="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.css' %}" >
 <link  href="{% static 'base/vendor/jquery_confirm/jquery-confirm.min.css' %}">
@@ -174,10 +177,6 @@
     </ul>
     {% endblock side_bar %}
  
-
-{% block top_bar %}
-  
-
   
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -186,6 +185,7 @@
       <div id="content">
 
         <!-- Topbar -->
+        {% block top_bar %}
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Sidebar Toggle (Topbar) -->
@@ -235,21 +235,13 @@
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user}}</span>
                 <img class="img-profile rounded-circle" src="{% static 'base/img/user.png' %}">
               </a>
+
+
+
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
-                <div class="dropdown-divider"></div>
+               
+               
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
@@ -278,12 +270,12 @@
         {% endblock page_content %}
         <!-- /.container-fluid -->
 
-{% block footer %}
+
   
   
       </div>
       <!-- End of Main Content -->
-
+      {% block footer %}
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -343,19 +335,20 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{% static 'base/js/sb-admin-2.min.js' %}"></script>
-  
  
     
   <script src="{% static 'base/vendor/datatables/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+  <script src="{% static 'base/vendor/jquery_confirm/jquery-confirm.min.js' %}"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>  
   
   
   <script src="{% static 'base/vendor/bootstrap-table-master/dist/bootstrap-table.min.js' %} "></script>
   <script src="{% static 'base/vendor/bootstrap-table-master/dist/locale/bootstrap-table-es-AR.min.js' %} "></script>
   <script src="{% static 'base/vendor/select2-4.0.12/dist/js/select2.min.js' %}"></script>
+  <!--Ventanas de mensajes-->
+  <script src=" {% static 'base/js/sweetalert/sweetalert.js' %} "></script>
   <script>
 
 
@@ -364,12 +357,12 @@
     });
 </script>
 
-  {% block js_page %}
-    
-  {% endblock js_page %}
+ 
   
-  {% block control_modal %}
+{% block control_modal%}
  <script>
+  
+
    function abrir_modal(url){
      $("#popup").load(url , function(){
       $(this).modal({
@@ -385,14 +378,35 @@
        return false;
        
      }
-     function cerrar_modal()
-    {
-      $('#popup').modal('hide');
-      return false;
-    }
+     
+                function mensaje(mensaje ,title, icon){
+                  Swal.fire({
+                  title: title,
+                  text: mensaje,
+                  icon: icon,
+                  confirmButtonText: 'OK'
+            })
+
+                }
+    
+    
+
  </script>
-  {% endblock control_modal %}
-   
+    {% endblock%}
+  {% block js_page %}{% endblock js_page %}
 </body>
 
 </html>
+
+<!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+
+    function mensaje(msg , color='green'){
+      $.alert({
+        title:'',
+        theme:'material',
+        type:color,
+        content:msg
+      });
+    }
+-->

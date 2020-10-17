@@ -161,6 +161,45 @@
 </div>
 </div>
 
+<script>
+ $(function(){
+     let  url = $("form")[1].action;
+     var token= jQuery("[name=crsfmiddlewaretoken]").val();
+
+     $("form").submit(function(e){
+         e.preventDefault();
+         var formData =$("form").serializeArray();
+         $.ajax({
+             url:url,
+             method:"POST",
+             headers: {'X-CRSFToken': token},
+             data: formData,
+
+
+         })
+            .done(function(r,textStatus,xhr){
+                if(xhr.status=200){
+                    location.reload(true);
+                }
+                else{
+                    alert(textSatatus);
+                }
+     }).fail( function (error){
+         mensaje=error.responseText.trim()
+         alert(mensaje);
+     });
+     });
+ });
+$(function()
+{
+    $("#id_bodega").val("{{obj.bodega.id}}").change();
+    $("#id_cepa").val("{{obj.cepa.id}}").change();
+    $("#id_unidad").val("{{obj.unidad.id}}").change();
+    $("#id_reserva").val("{{obj.reserva.id}}").change();
+});
+
+</script>
+
   <!--
 
   <div class="row">

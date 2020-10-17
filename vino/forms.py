@@ -15,19 +15,7 @@ def __init__(self, *args, **kwargs): #SE SOBRESCRIBE EL CONSTRUCTOR DEL FORMULAR
             'class':'form-control',
         })
 
-class BodegaNewForm(forms.ModelForm):
-    class Meta:
-        model=Bodega
-        fields=['nombre','numero','email' , 'estado']
-        labels={'nombre':'Nombre', 'numero':'Numero','email': 'Email' }
-        #widget={'descripcion':forms.TextInput}
 
-    def __init__(self, *args, **kwargs): #SE SOBRESCRIBE EL CONSTRUCTOR DEL FORMULARIO
-        super().__init__(*args, **kwargs) #SE INVOCA EL CONSTRUCTOR
-        for field in iter(self.fields):
-            self.fields[field].widget.attrs.update({
-                'class':'form-control',
-            })
 class ReservaNewForm(forms.ModelForm):
     class Meta:
         model=Reserva
@@ -59,7 +47,7 @@ class VinoNewForm(forms.ModelForm):
         model=Vino
         fields=['nombre','descripcion','codigo','precioventa','foto','reserva','bodega','cepa','unidad','existencia','ultimacompra','sm','estado' ]
         #labels={'medida':'Medida'}
-        #widget={'descripcion':forms.TextInput}
+        widget={'descripcion':forms.TextInput, 'precioventa':forms.NumberInput(attrs={'required':True})}
 
     def __init__(self, *args, **kwargs): #SE SOBRESCRIBE EL CONSTRUCTOR DEL FORMULARIO
         super().__init__(*args, **kwargs) #SE INVOCA EL CONSTRUCTOR
@@ -67,8 +55,34 @@ class VinoNewForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({
                 'class':'form-control',
             })
+            self.fields['descripcion'].widget.attrs['required']=True
             self.fields['ultimacompra'].widget.attrs['readonly']=True
             self.fields['existencia'].widget.attrs['readonly']=True
 
+    def clean(self):
+        try:
+            vino=Vino.objects.get(codigo=self.cleaned_data['codigo'])
+            if not self.instance.pk:
+                raise forms.ValidationError("El registro ya existe")
+            elif self.instance.pk!=vino.pk:
+                raise forms.ValidationError("Cambio no permitido")
+        except Vino.DoesNotExist:
+            pass
+        return self.cleaned_data
+
 
     
+'''
+class BodegaNewForm(forms.ModelForm):
+    class Meta:
+        model=Bodega
+        fields=['nombre','numero','email' , 'estado']
+        labels={'nombre':'Nombre', 'numero':'Numero','email': 'Email' }
+        #widget={'descripcion':forms.TextInput}
+
+    def __init__(self, *args, **kwargs): #SE SOBRESCRIBE EL CONSTRUCTOR DEL FORMULARIO
+        super().__init__(*args, **kwargs) #SE INVOCA EL CONSTRUCTOR
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class':'form-control',
+            })'''

@@ -54,12 +54,14 @@ class ComprasDet(ClaseModelo):
 def detalle_compra_guardar(sender,instance,**kwargs):
     id_vino = instance.vino.id
     fecha_compra=instance.compra.fecha_compra
+    print(fecha_compra)
 
     vino=Vino.objects.filter(pk=id_vino).first()
     if vino:
         cantidad = int(vino.existencia) + int(instance.cantidad)
         vino.existencia = cantidad
-        vino.ultima_compra=fecha_compra
+        vino.ultimacompra=fecha_compra
+        print(vino.ultimacompra)
         vino.save()
 
 
@@ -67,6 +69,7 @@ def detalle_compra_guardar(sender,instance,**kwargs):
 def detalle_compra_borrar(sender,instance, **kwargs):
     id_vino = instance.vino.id
     id_compra = instance.compra.id
+    fecha_compra=instance.compra.fecha_compra
 
     enc = ComprasEnc.objects.filter(pk=id_compra).first()
     if enc:
@@ -83,6 +86,7 @@ def detalle_compra_borrar(sender,instance, **kwargs):
     if vino:
         cantidad = int(vino.existencia) - int(instance.cantidad)
         vino.existencia = cantidad
+        vino.ultimacompra=fecha_compra
         vino.save()
 
 

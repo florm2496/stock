@@ -27,11 +27,23 @@
                  {% if not obj %}
                      No hay unidades
                  {% endif %}
-                 <table class="table table-striped table-hover">
+                 <table class="table table-striped table-hover"
+                 id="table"
+                 data-toggle="table"
+                 data-pagination="true"
+                 data-search="true"
+                 data-show-columns="true"
+                 data-show-toggle="true"
+                 data-show-fullscreen="true"
+                 data-toolbar=".buttons-toolbar"
+                 data-locale="es-NI"
+                 
+                 
+                 >
                     <thead>
-                        <th>Medida</th>
-                        <th>Estado</th>
-  <th>Usuario creador</th>
+                  <th data-sortable="true" data-field="medida">Medida</th>
+                  <th data-sortable="true">Estado</th>
+  <th data-sortable="true">Usuario creador</th>
     <th class="all">acciones</th>
                     </thead>
 <tbody>

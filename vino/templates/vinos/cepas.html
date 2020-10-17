@@ -27,10 +27,20 @@
                  {% if not obj %}
                      No hay cepas
                  {% endif %}
-                 <table class="table table-striped table-hover">
+                 <table class="table table-striped table-hover"
+                 id="table"
+                 data-toggle="table"
+                 data-pagination="true"
+                 data-search="true"
+                 data-show-columns="true"
+                 data-show-toggle="true"
+                 data-show-fullscreen="true"
+                 data-toolbar=".buttons-toolbar"
+                 data-locale="es-NI"
+                 >
                     <thead>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
+                  <th data-sortable="true" data-field="nombre">Nombre</th>
+                  <th data-sortable="true">Descripcion</th>
      <th>Estado</th>
      <th>Usuario creador</th>
      
@@ -79,12 +89,7 @@
 {% endblock page_content %}
 
 {% block js_page %}
-   <script>
-     
-$(document).ready(function(){
-  $('.table').DataTable();
-});
-   </script>
+
 {% endblock js_page %}
     
     

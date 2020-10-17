@@ -18,6 +18,7 @@
       </div>
       <div class="col-md-4">
         <button class="btn btn-warning" type="button" id="btnPrint">Imprimir</button>
+        
       </div>
     </div>
     <hr>
@@ -59,6 +60,7 @@
           <a href="{% url 'ventas:ventaedit' item.id %}" class="href btn btn-warning btn-circle">
               <i class="far fa-edit"></i>
           </a>
+          <a class="btn btn-success btn-circle" href="{% url 'ventas:imprimirecibo' item.id %} " target="reportes"><i class="fas fa-print"></i></a>
         </td>
       </tr>
       {% endfor %}
@@ -90,7 +92,7 @@ $(function(){
       var f2 = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
     }
     
-    var url = "imprimir-todas/" + f1 + "/" + f2;
+    var url = "imprimirventas/" + f1 + "/" + f2;
 
     window.open(url,'ventas');
     

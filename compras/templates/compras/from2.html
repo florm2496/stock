@@ -63,7 +63,7 @@
                                                         <td>{{ item.nombre }}</td>
                                                         <td>{{ item.codigo}}</td>
                                                         <td>
-                                                            <button type="button" onclick="selectProducto('{{item.nombre}}',{{item.codigo}})" class="btn btn-warning btn-circle"></button>
+                                                            <button type="button" onclick="selectProducto('{{item.nombre}}',{{item.codigo}})" class="btn btn-warning btn-circle"><i class="far fa-thumbs-up"></i></button>
                                                            
                                                         </td>
                                                         </tr>
@@ -130,7 +130,7 @@
                                                 <th>Cantidad</th>
                                                 <th>Precio</th>
                                                 <th>Sub Total</th>
-                                                <th>Total</th>
+                                         
                                          
                                                 <th class="all">Acciones</th>
                                             </thead>
@@ -142,7 +142,7 @@
                                                 <td>{{item.precio}}</td>
                                                 <td>{{item.sub_total}}</td>
                     
-                                                <td>total</td>
+                                           
                                                 <td>
                                                     <button class="btn btn-danger btn-circle"  onclick="return abrir_modal('{% url 'compras:delete_detcompra' encabezado.pk item.id %}')" ><i class="fas fa-trash-alt"></i></button>
                                                 </td>
@@ -173,7 +173,7 @@ $("#id_fecha_compra").datetimepicker({
 $("#sidebarToggle").click();
 
 $('.table').DataTable({
-    "pageLength": 2,
+    "pageLength": 4,
     "language": {
     "sProcessing": "Procesando...",
     "sLengthMenu": "Mostrar _MENU_ registros",
@@ -202,25 +202,22 @@ $('.table').DataTable({
    /*Validar Envío de Detalle */
    $("#frmCompras").submit(function(e){
            // alert($('#id_fecha_compra').val());
-            mensaje='';
+            mens='';
 
-            if($('#id_cantidad_detalle').val()==0 ) mensaje+='cantidad ';
+            if($('#id_cantidad_detalle').val()==0 ) mens+='cantidad ';
 
-            if($('#id_precio_detalle').val()==0 ) mensaje+='precio ';
+            if($('#id_precio_detalle').val()==0 ) mens+='precio ';
 
-            if($('#id_codigo').val()==0 ) mensaje+='producto ';
+            if($('#id_codigo').val()==0 ) mens+='producto ';
 
-            if($('#id_fecha_compra').val().trim()=='') mensaje+='fecha de compra ';
+            if($('#id_fecha_compra').val().trim()=='') mens+='fecha de compra ';
 
             //if($('#id_total_detalle').val()==0 || $('#id_codigo').val()==0 || $('#id_fecha_compra').val().trim()==''){
-            if(mensaje.trim()!=''){
+            if(mens.trim()!=''){
                 e.preventDefault();
                 //alert("No ha agregado producto o está sin cantidades");
-                $.alert({
-                        type:'red',
-                        title:'',
-                        content:'No ha agregado ' + mensaje 
-                        })
+                cadena='No ha agregado ' + mens
+                mensaje(cadena,'','warning')
             }
             
         });
@@ -295,4 +292,10 @@ function selectProducto(nombre,codigo)
             calcular_detalle();
         });
         $("#id_fecha_compra").focus();
+
+         $.alert({
+                        type:'red',
+                        title:'',
+                        content:'No ha agregado ' + mensaje 
+                        })
 -->

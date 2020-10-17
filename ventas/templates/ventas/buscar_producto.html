@@ -32,7 +32,7 @@
                                   {% for item in obj%}
                                   <tr>
                                     <td>{{ item.id }}</td>
-                                    <td>{{ item.codigo }}</td>
+                                    <td>{{ item.nombre }}</td>
                                     <td>{{ item.codigo }}</td>
                                     <td>{{item.descripcion}}</td>
                                     <td>{{item.existencia}}</td>
@@ -42,7 +42,7 @@
                                      
                                 
                                      <button class="btn btn-warning btn-circle" id="btnSelect" 
-                                         onclick="seleccionarProducto({{item.id}},'{{item.codigo}}','{{item.descripcion}}',{{item.precioventa}})">
+                                     onclick="seleccionarProducto({{item.id}},'{{item.codigo}}','{{item.descripcion}}','{{item.existencia}}',{{item.precioventa}} )"></button>
                                             <i class="far fa-hand-pointer"></i>
                                         </button>
                                         {% endif %}
@@ -84,9 +84,10 @@
     });
     $('#tblProducto').bootstrapTable();
 
-    function seleccionarProducto(id,codigo,descripcion,precioventa){
+    function seleccionarProducto(id,codigo,descripcion,existencia,precioventa){
         $("#codigo").val(codigo);
         $("#descripcion").val(descripcion);
+        $("#existencia").val(existencia);
         $("#precio").val(precioventa);
         $("#btnCancelar").click();
         $("#codigo").select();
@@ -96,3 +97,7 @@
 
 </script>
 {% endblock %}
+
+<!--
+  
+-->
