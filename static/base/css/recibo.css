@@ -17,12 +17,12 @@ body { background: #e0e0e0 }
 }
 }
 .receipt {
-font: 12px, sans-serif, arial; /*editing to your whim, of course*/
+font: 14px, sans-serif, arial; /*editing to your whim, of course*/
 }
 
 body   { font-family: serif }
-h1     { font-family: 'Tangerine', cursive; font-size: 40pt; line-height: 18mm}
-h2, h3 { font-family: 'Tangerine', cursive; font-size: 24pt; line-height: 7mm }
+h1     { font-family: 'Tangerine', cursive; font-size: 50pt; line-height: 18mm}
+h2, h3 { font-family: 'Tangerine', cursive; font-size: 40pt; line-height: 7mm }
 h4     { font-size: 32pt; line-height: 14mm }
 h2 + p { font-size: 18pt; line-height: 7mm }
 h3 + p { font-size: 14pt; line-height: 7mm }
@@ -38,15 +38,15 @@ article { border: 4px double black; padding: 5mm 10mm; border-radius: 3mm }
 
 .table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td{
     padding: 1px;
-    font-size: 10px;
+    font-size: 20px;
 }
 .table-condensed, .table-sm{
 /*font-size: 10px;*/
-font: 8px, serif, arial;
+font: 15px, serif, arial;
 }
-th { font-size: 10pt; }
-td { font-size: 10pt; }
+th { font-size: 20pt; }
+td { font-size: 20pt; }
 
 .pie{
-    font-size: 7px;
+    font-size: 10px;
 }

@@ -8,14 +8,17 @@
     <title>Listado de Compras</title>
     <link rel="stylesheet" href="{% static 'base/css/recibo.css' %}">
     <style type="text/css">
-        @page {
-             width: 58mm; 
-            size: auto;   
-            margin: 0mm;s
-            }
+       @page {
+        size: letter;
+        margin: 1cm;
+    }
+
+    .table td {
+        text-align: center;
+    }
     </style>
 </head>
-<body onload="window.print();" class="receipt">
+<body >
     <div class="col-md-1 col-sm-1 col-xs-1 col-xl-1">
         <center>
             <b class="text-center">Vinoteca</b><br> 
@@ -41,7 +44,7 @@
             <tbody>
                 {% for obj in detalle %}
                 <tr>
-                    <td>{{obj.producto.id}}</td>
+                    <td>{{obj.vino.codigo}}</td>
                     <td>{{obj.cantidad}}</td>
                     <td>{{obj.precio}}</td>
                     <td>{{obj.sub_total}}</td>
@@ -66,7 +69,7 @@
                         <td>Sub Total:</td> <td align='right'>{{enc.sub_total}}</td>
                     </tr>
                     <tr>
-                        <td>Iva:</td> <td align='right'>{{enc.descuento}}</td>
+                        <td>Descuento</td> <td align='right'>{{enc.descuento}}</td>
                     </tr>
                     <tr>
                         <td>Total:</td> <td align='right'><b>{{enc.total}}</b></td>
@@ -81,10 +84,11 @@
             <center>
                 Creada por:  {{enc.uc}} - Fecha:  {{enc.fc}}
                 <br>
-                <i>&copy; &reg; <b>Daniel Bojorge y/o DEBS Consultores</b><br> - debsconsultores@gmail.com</i> 
+               
             </center>
         </small>
         </div>
     </div>
 </body>
 </html>
+<!--  <i>&copy; &reg; <b></b><br></i>  -->

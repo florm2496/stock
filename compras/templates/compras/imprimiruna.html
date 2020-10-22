@@ -45,6 +45,7 @@
                 <thead>
                   <tr>
                     <th>#</th>
+                    <th scope="col">Codigo</th>
                     <th scope="col">Producto</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Cantidad</th>
@@ -56,6 +57,7 @@
                     {% for item in detalle %}
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
+                        <td>{{item.vino.codigo}}</td>
                         <td>{{item.vino}}</td>
                         <td>{{item.precio}}</td>
                         <td>{{item.cantidad}}</td>

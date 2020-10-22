@@ -76,37 +76,50 @@
       <div class="sidebar-heading">
         OPCIONES DE MENU
       </div>
-
+{% url 'vino:cepa' as cepa_url %}
+{% url 'vino:bodegas' as bodega_url %}
+{% url 'vino:reservas' as reser_url %}
+{% url 'vino:unidades' as uni_url %}
+{% url 'vino:vinos' as vino_url %}
+{% url 'compras:listacompras' as compras_url %}
+{% url 'ventas:clientes' as clientes_url %}
+{% url 'ventas:ventas' as ventas_url %}
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
+      <li class="nav-item 
+      {%  if cepa_url in request.path or bodega_url in request.path or  reser_url in request.path %}
+        active
+      {% endif %}
+          ">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
           <span>CATALOGOS</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse  {% if cepa_url in request.path or bodega_url in request.path or  reser_url in request.path %}
+        show
+      {% endif %} " aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">CATALOGOS DE INVENTARIO</h6>
         
-            <a class="collapse-item" href="{% url 'vino:cepas' %}">Cepas</a>
+            <a class="collapse-item" href="{{cepa_url}}">Cepas</a>
 
-            <a class="collapse-item" href="{% url 'vino:bodegas' %}">Bodegas</a>
+            <a class="collapse-item" href="{{bodega_url}}">Bodegas</a>
           
-            <a class="collapse-item" href="{% url 'vino:reservas' %}">Reservas</a>
+            <a class="collapse-item" href="{{reser_url}}">Reservas</a>
            
-            <a class="collapse-item" href="{% url 'vino:unidades' %}">Unidades</a>
+            <a class="collapse-item" href="{{uni_url}}">Unidades</a>
             
-            <a class="collapse-item" href="{% url 'vino:vinos' %}">Vinos</a>
+            <a class="collapse-item" href="{{vino_url}}">Vinos</a>
               
               {% if perms.compras.view_comprasenc %}
-              <a class="collapse-item" href="{% url 'compras:listacompras' %}">Compras</a  >
+              <a class="collapse-item" href="{{compras_url}}">Compras</a  >
               {% endif %}
                 
           
               {% if perms.ventas.view_clientes %}
-            <a class="collapse-item" href="{% url 'ventas:clientes' %}">Clientes</a>
+            <a class="collapse-item" href="{{clientes_url}}">Clientes</a>
             {% endif %}
             {% if perms.ventas.view_facturaenc %}
-            <a class="collapse-item" href="{% url 'ventas:ventas' %}">Ventas</a>
+            <a class="collapse-item" href="{{ventas_url}}">Ventas</a>
             {% endif %}
        
           </div>
