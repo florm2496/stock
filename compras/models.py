@@ -75,19 +75,25 @@ def detalle_compra_borrar(sender,instance, **kwargs):
     if enc:
         sub_total = ComprasDet.objects.filter(compra=id_compra).aggregate(Sum('sub_total'))
         print('--------------------' ,sub_total['sub_total__sum']) 
-        if  sub_total['sub_total__sum'] is None:
+        if  sub_total['sub_total__sum'] is None or sub_total['sub_total__sum']==0:
             enc.total=0  
             print('!!!!!!!1funciona',enc.total) 
+            enc.save()
         else:
             enc.total=sub_total['sub_total__sum']
             enc.save()
     
     vino=Vino.objects.filter(pk=id_vino).first()
     if vino:
-        cantidad = int(vino.existencia) - int(instance.cantidad)
-        vino.existencia = cantidad
-        vino.ultimacompra=fecha_compra
-        vino.save()
+        cant=int(instance.cantidad)
+        ex=int(vino.existencia)
+        if cant>ex:
+            print('no se puede hacer')
+        elif cant<=ex:
+            cantidad = ex - cant
+            vino.existencia = cantidad
+            vino.ultimacompra=fecha_compra
+            vino.save()
 
 
 

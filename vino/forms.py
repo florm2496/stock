@@ -45,7 +45,7 @@ class UnidadNewForm(forms.ModelForm):
 class VinoNewForm(forms.ModelForm):
     class Meta:
         model=Vino
-        fields=['nombre','descripcion','codigo','precioventa','foto','reserva','bodega','cepa','unidad','existencia','ultimacompra','sm','estado' ]
+        fields=['nombre','descripcion','codigo','precioventa','reserva','bodega','cepa','unidad','existencia','ultimacompra','sm','estado' ]
         #labels={'medida':'Medida'}
         widget={'descripcion':forms.TextInput, 'precioventa':forms.NumberInput(attrs={'required':True})}
 
@@ -71,13 +71,12 @@ class VinoNewForm(forms.ModelForm):
         return self.cleaned_data
 
 
-    
-'''
+
 class BodegaNewForm(forms.ModelForm):
     class Meta:
         model=Bodega
         fields=['nombre','numero','email' , 'estado']
-        labels={'nombre':'Nombre', 'numero':'Numero','email': 'Email' }
+        
         #widget={'descripcion':forms.TextInput}
 
     def __init__(self, *args, **kwargs): #SE SOBRESCRIBE EL CONSTRUCTOR DEL FORMULARIO
@@ -85,4 +84,6 @@ class BodegaNewForm(forms.ModelForm):
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({
                 'class':'form-control',
-            })'''
+            })
+            self.fields['numero'].widget.attrs['requiered']=False
+            self.fields['email'].widget.attrs['requiered']=False

@@ -47,7 +47,7 @@ def reporte_compras(request):
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; filename="report.pdf"'
+    response['Content-Disposition'] = 'inline; filename="reportecompras.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
@@ -79,7 +79,7 @@ def imprimir_compra(request, compra_id):
     }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; filename="report.pdf"'
+    response['Content-Disposition'] = 'inline; filename="compra.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)

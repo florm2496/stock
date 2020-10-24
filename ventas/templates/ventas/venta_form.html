@@ -126,10 +126,10 @@
                              value="0.00" disabled>
                         </div>
                         <input type="hidden" class="form-control" name="existencia" id="existencia">
-                        <button onclick="alert(existencia.value)" >boton</button>             
+                           
                     </div>
                 </div>
-                <!-- Fin Sección Derecha -->
+                <!-- Fin Sección Derecha       <button onclick="alert(existencia.value)" >boton</button>     -->
             </div>
             <!-- Fin Sección Superior -->
             <!-- Inicio Detalle -->
@@ -171,7 +171,7 @@
                                 <td>{{ item.total }}</td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-circle"
-                                    >
+                                onclick="borrar_detalle({{ item.id }})" >
                                     <i class="fas fa-history"></i>
                                 </button>
                             </td>
@@ -252,7 +252,7 @@
                 console.log(r.existencia);
                 console.log(r.estado);
 
-                if(r.existencia<=0){
+                if(r.existencia<=0 || !r.estado){
                     mensaje('Este producto no tiene stock o esta inactivo' ,'error')
                     $("#descripcion").val("");
                     $("#precio").val("0.00");
@@ -295,6 +295,7 @@
             var cantidad = +$("#cantidad").val();
             console.log(cantidad,existencia)
             //($("#enc_cliente").val()==="0" || $("#enc_cliente").val()===null
+          
             if (cantidad=='' ){
                 mensaje('Faltan campos por completar' ,'','warning')
                 return false;
@@ -321,9 +322,11 @@
             allowClear: true
 
         });
+
+
         $("#btnBuscar").click(function(e){
-            if ($("#enc_cliente").val()==="0"){
-                alert("Cliente No Seleccionado",'blue');
+            if ($("#enc_cliente").val()===null){
+               mensaje("Cliente No Seleccionado",'warning');
                 return false;
             }
             abrir_modal("{% url 'ventas:buscar' %}");
@@ -345,13 +348,76 @@
       $("#descuento").val("{{ enc.descuento }}");
       $("#total").val({{ enc.total }});
 
-      $('#enc_cliente').select2().select2('val', $('#enc_cliente option:eq(1)').val())
-
-      /*$("#enc_cliente").data('select2').trigger('select', {
-   data: {"#id": 3} */
-
-       
+      //$('#enc_cliente').select2().select2('val', $('#enc_cliente option:eq(1)').val());
+      
         });
+//funcion borrar detalle
+
+        function borrar_detalle(id)
+    {
+        // mensaje(id);
+        $.confirm({
+            theme:"modern",
+            icon:"fab fa-keycdn",
+            type:'red',
+            title: "Confirmación Requerida",
+            content: 'url:/ventas/ventas/borrar-detalle/' + id,
+            onContentReady: function () {
+                var self = this;
+                this.$content.find('#usuario').val('{{ user.username }}');
+                this.$content.find('#usuario').select();
+                this.$content.find('#usuario').focus();
+            },
+            buttons:{
+                borrar:{
+                    text:"Borrar",
+                    btnClass:"btn btn-danger",
+                    action: function(){
+                        var usuario = this.$content.find('input#usuario');
+	                    var pass = this.$content.find('input#password');
+
+                        if(!usuario.val().trim()){
+                            mensaje("Usuario es requerido",'red');
+                            return false;
+                        }
+
+                        if(!pass.val().trim()){
+                            // $.alert({
+                            //     title:"Error",
+                            //     content: "Contraseña es Requerida",
+                            //     type: 'red'
+                            // });
+                            mensaje("Contraseña es Requerida","red");
+                            return false;
+                        }
+
+                        var data = {"usuario":usuario.val(),"pass":pass.val()};
+	                    console.log(data);
+
+                        var token = '{{csrf_token}}';
+                        $.ajax({
+                            headers: { "X-CSRFToken": token },
+                            type:"POST",
+                            data:data,
+                            url: '/ventas/ventas/borrar-detalle/' + id,
+                            success: function(r){
+                                console.log(r);
+                                if(r==="ok"){
+                                    location.reload(true);
+                                }else{
+                                    mensaje(r,'red');
+                                }
+                            },
+                            error: function(a,b,c){
+                                mensaje(c);
+                            }
+                        });
+                    }
+                    },
+                cancelar: function(){}
+                }
+        });
+    }
     
     </script>
 {% endblock js_page %}

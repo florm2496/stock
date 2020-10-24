@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from .models import Cepa ,Vino ,Reserva,Bodega ,Unidad
 # Create your views here.
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin ,PermissionRequiredMixin
 from django.views.generic import ListView ,UpdateView, CreateView ,TemplateView
-from .forms import CepaNewForm ,ReservaNewForm,UnidadNewForm,VinoNewForm
+from .forms import CepaNewForm ,ReservaNewForm,UnidadNewForm,VinoNewForm ,BodegaNewForm
 from django.urls import reverse_lazy
 #,BodegaNewForm 
 from django.http import HttpResponse, JsonResponse
+from bases.views import SinPrivilegios
 
 
 class MixinFormInvalid():
@@ -19,14 +21,14 @@ class MixinFormInvalid():
 
 
 
-class CepaView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
+class CepaView(SinPrivilegios,ListView):
     model=Cepa
     context_object_name='obj'
     template_name='vinos/cepas.html'
     login_url='bases:login'
     permission_required='vino.view_cepa'
     
-class CepaNew(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
+class CepaNew(SuccessMessageMixin,SinPrivilegios,CreateView):
     model=Cepa
     form_class=CepaNewForm
     template_name='vinos/crearcepa.html'
@@ -34,7 +36,8 @@ class CepaNew(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     success_url=reverse_lazy('vino:cepas')
     login_url='bases-login'
     permission_required='vino.add_cepa'
-class CepaUpdate(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
+    success_message='Cepa creada satisfactoriamente'
+class CepaUpdate(SuccessMessageMixin,SinPrivilegios, UpdateView):
     model=Cepa
     form_class=CepaNewForm
     template_name='vinos/crearcepa.html'
@@ -42,32 +45,34 @@ class CepaUpdate(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     success_url=reverse_lazy('vino:cepas')
     login_url='bases-login'
     permission_required='vino.change_cepa'
+    success_message='Cepa actualizada satisfactoriamente'
     #permission_required='vino.delete_cepa'
 
-class BodegaView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
+class BodegaView(SuccessMessageMixin,SinPrivilegios,ListView):
     model=Bodega
     context_object_name='obj'
     template_name='vinos/bodegas.html'
     login_url='bases:login'
     permission_required='vino.view_bodega'
-class BodegaNew(PermissionRequiredMixin,LoginRequiredMixin , CreateView):
+class BodegaNew(SuccessMessageMixin,SinPrivilegios, CreateView):
     model=Bodega
-    #form_class=BodegaNewForm
-    fields=['nombre' ,'numero' ,'email']
+    form_class=BodegaNewForm
     context_object_name='obj'
     template_name='vinos/crearbodega.html'
     login_url='bases:login'
     success_url=reverse_lazy('vino:bodegas')
     permission_required='vino.add_bodega'
-class BodegaUpdate(PermissionRequiredMixin,LoginRequiredMixin , UpdateView):
+    success_message='Bodega creada exitosamente'
+class BodegaUpdate(SuccessMessageMixin,SinPrivilegios, UpdateView):
     model=Bodega
-    #form_class=BodegaNewForm
+    form_class=BodegaNewForm
     context_object_name='obj'
     template_name='vinos/crearbodega.html'
     login_url='bases:login'
     success_url=reverse_lazy('vino:bodegas')   
     permission_required='vino.change_bodega'
-class ReservaView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
+    success_message='Bodega editada exitosamente'
+class ReservaView(SuccessMessageMixin,SinPrivilegios,ListView):
     model=Reserva
     context_object_name='obj'
     template_name='vinos/reservas.html'
@@ -80,7 +85,7 @@ class ReservaView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
     
     
 
-class ReservaNew(PermissionRequiredMixin,LoginRequiredMixin,CreateView):
+class ReservaNew(SinPrivilegios,SuccessMessageMixin,CreateView):
     model=Reserva
     form_class=ReservaNewForm
     context_object_name='obj'
@@ -88,8 +93,8 @@ class ReservaNew(PermissionRequiredMixin,LoginRequiredMixin,CreateView):
     success_url=reverse_lazy('vino:reservas')
     login_url='bases:login'
     permission_required='vino.add_reserva'
-
-class ReservaUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView):
+    success_message='Reserva creada exitosamente'
+class ReservaUpdate(SuccessMessageMixin,SinPrivilegios,UpdateView):
     model=Reserva
     form_class=ReservaNewForm
     context_object_name='obj'
@@ -97,40 +102,44 @@ class ReservaUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView):
     success_url=reverse_lazy('vino:reservas')
     login_url='bases:login'
     permission_required='vino.change_reserva'
+    success_message='Reserva editada exitosamente'
     #permission_required='vino.delete_reserva'
 
-class UnidadView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
+class UnidadView(SuccessMessageMixin,SinPrivilegios,ListView):
     model=Unidad
     context_object_name='obj'
     template_name='vinos/unidades.html'
     login_url='bases:login'
-    permission_required='unidad.view_unidad'
-class UnidadNew(PermissionRequiredMixin,LoginRequiredMixin,CreateView):
+    permission_required='vino.view_unidad'
+    
+class UnidadNew(SuccessMessageMixin,SinPrivilegios,CreateView):
     model=Unidad
     form_class=UnidadNewForm
     context_object_name='obj'
     template_name='vinos/crearunidad.html'
     success_url=reverse_lazy('vino:unidades')
-    login_url='bases:login'
-    permission_required='unidad.add_unidad'
-class UnidadUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView):
+   
+    permission_required='vino.add_unidad'
+    success_message='Unidad creada exitosamente'
+class UnidadUpdate(SuccessMessageMixin,SinPrivilegios,UpdateView):
     model=Unidad
     form_class=UnidadNewForm
     context_object_name='obj'
     template_name='vinos/crearunidad.html'
     success_url=reverse_lazy('vino:unidades')
-    login_url='bases:login'
-    permission_required='unidad.change_unidad'
+
+    permission_required='vino.change_unidad'
+    success_message='Unidad editada exitosamente'
 
     
 
-class VinoView(PermissionRequiredMixin,LoginRequiredMixin,ListView): 
+class VinoView(SuccessMessageMixin,SinPrivilegios,ListView): 
     model=Vino
     context_object_name='obj'
     template_name='vinos/vinos.html'
     login_url='bases:login'
     permission_required='vino.view_vino'
-class VinoNew(MixinFormInvalid,PermissionRequiredMixin,LoginRequiredMixin,CreateView): 
+class VinoNew(SuccessMessageMixin,MixinFormInvalid,SinPrivilegios,CreateView): 
     model=Vino
     form_class=VinoNewForm
     context_object_name='obj'
@@ -138,6 +147,7 @@ class VinoNew(MixinFormInvalid,PermissionRequiredMixin,LoginRequiredMixin,Create
     success_url=reverse_lazy('vino:vinos')
     login_url='bases:login'
     permission_required='vino.add_vino'
+    success_message='Vino creado exitosamente'
 
     def form_valid(self, form):
         form.instance.uc = self.request.user
@@ -152,7 +162,7 @@ class VinoNew(MixinFormInvalid,PermissionRequiredMixin,LoginRequiredMixin,Create
         context['reserva']=Reserva.objects.filter(estado=True)
         print(context)
         return context
-class VinoUpdate(MixinFormInvalid,PermissionRequiredMixin,LoginRequiredMixin,UpdateView): 
+class VinoUpdate(SuccessMessageMixin, MixinFormInvalid,SinPrivilegios,UpdateView): 
     model=Vino
     form_class=VinoNewForm
     context_object_name='obj'
@@ -160,6 +170,7 @@ class VinoUpdate(MixinFormInvalid,PermissionRequiredMixin,LoginRequiredMixin,Upd
     success_url=reverse_lazy('vino:vinos')
     login_url='bases:login'
     permission_required='vino.change_vino'
+    success_message='Vino editado exitosamente'
     #permission_required='vino.delete_vino'
     def form_valid(self, form):
         form.instance.uc = self.request.user
@@ -172,5 +183,4 @@ class VinoUpdate(MixinFormInvalid,PermissionRequiredMixin,LoginRequiredMixin,Upd
         context['unidad']=Unidad.objects.filter(estado=True)
         context['reserva']=Reserva.objects.filter(estado=True)
         context["obj"] = Vino.objects.filter(pk=pk).first()
-        print(context)
         return context

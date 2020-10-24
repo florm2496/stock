@@ -10,15 +10,9 @@
                   <h6 class="m-0 font-weight-bold text-primary">LISTADO DE CLIENTES</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                      
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">ACCIONES:</div>
-                     
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+                 
                   </div>
                 </div>
                 <!-- Card Body -->
@@ -46,9 +40,9 @@
     <th data-sortable="true" data-field="tipo" >tipo</th>
      <th data="numero" >numero</i></th>
      <th  data="email"  >email</th>
-     <th data="direccion"  >direccion</th>
+ 
      <th data="estado"  >estado</th>
-    <th class="all">acciones</th>
+    <th class="all">Editar</th>
                     </thead>
 <tbody>
     
@@ -60,12 +54,13 @@
         <td>{{item.numero}}</td>
         
         <td>{{item.email}}</td>
-        <td>{{item.direccion}}</td>
+      
         <td >{{item.estado|yesno:"Activo,Inactivo"}}
         </td> 
     <td>
-     
-          <button class="btn btn-warning btn-circle" role="button" onclick="return abrir_modal('{% url 'ventas:cliente_edit' item.id %}')"><i class="far fa-edit"></i></button>
+      <button type="submit" class="btn btn-warning btn-circle" onclick="return abrir_modal('{% url 'ventas:cliente_edit' item.id %}')"><i class="far fa-edit"></i></button>
+ 
+         
         </td>  
     </tr>
         

@@ -60,7 +60,12 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Productos cargados</div>
+                        
+                        {% if user.is_superuser %}
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{prods}}</div>
+                        {% endif %}
+                          
+                      
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-wine-bottle fa-2x "></i>
@@ -78,8 +83,12 @@
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total de ventas registradas</div>
                         <div class="row no-gutters align-items-center">
-                          <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{vr}}</div>
+                          <div class="col-auto"> 
+                          {% if user.is_superuser %}
+                                      
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{vr}}</div>
+                          {% endif %}
+                  
                           </div>
                           <div class="col">
                           
@@ -101,7 +110,12 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Clientes</div>
+                        
+                        {% if user.is_superuser %}
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{client}}</div>
+                        {% endif %}
+                          
+                        
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-handshake fa-2x text-gray-300"></i>
@@ -129,20 +143,26 @@
                             <tr>
                               <th scope="col">#</th>
                               <th scope="col">Nombre</th>
+                              <th scope="col">codigo</th>
                               <th scope="col">Cantidad</th>
                           
                             </tr>
                           </thead>
                           <tbody>
                             
+                            {% if user.is_superuser %}
+                                    
                             {% for item in mv  %}
                             <tr>
                               <th scope="row"> {{ forloop.counter }} </th>
                               <td> {{item.vino__nombre}}</td>
+                              <td> {{item.vino__codigo}}</td>
                               <td> {{item.cantidad__sum}}</td>
                      
                             </tr>
                             {% endfor %}
+                            {% endif %}
+                        
                               
                            
                           
@@ -174,6 +194,7 @@
                         </thead>
                         <tbody>
                           
+                          {% if user.is_superuser %}
                           {% for item in ss  %}
                           <tr>
                             <th scope="row"> {{ forloop.counter }} </th>
@@ -182,12 +203,15 @@
                    
                           </tr>
                           {% endfor %}
+                          {% endif %}
+                            
+                  
                             
                          
                         
                         </tbody>
                       </table>
-                        <div class="text-white-50 small">#1cc88a</div>
+                        <div class="text-white-50 small"></div>
                       </div>
                     </div>
                   </div>
@@ -206,6 +230,7 @@
                             </thead>
                             <tbody>
                               
+                              {% if user.is_superuser %}
                               {% for item in sm  %}
                               
                           
@@ -217,6 +242,9 @@
                               </tr>
                         
                               {% endfor %}
+                              {% endif %}
+                                
+                             
       
                             
                             </tbody>
@@ -229,50 +257,54 @@
                   <div class="col-lg-6 mb-4">
                     <div class="card bg-warning text-white shadow">
                       <div class="card-body">
-                        Productos añadidos recientemente
+                        Productos agregados recientemente
                         <table class="table"  style="color: aliceblue;">
                           <thead   >
                             <tr>
                               <th scope="col">#</th>
                               <th scope="col">Nombre</th>
-                              <th scope="col">Cantidad</th>
+                              <th scope="col">Fecha</th>
               
                             </tr>
                           </thead>
                           <tbody>
                             
-                            {% for item in up  %}
+                           
+                           {% if user.is_superuser %}
+                           {% for item in up  %}
                             
                         
-                            <tr>
-                              <th scope="row"> {{ forloop.counter }} </th>
-                              <td> {{item.nombre}}</td>
-                              <td> {{item.codigo}}</td>
+                           <tr>
+                             <th scope="row"> {{ forloop.counter }} </th>
+                             <td> {{item.nombre}}</td>
+                             <td> {{item.fc}}</td>
+                    
+                           </tr>
                      
-                            </tr>
-                      
-                            {% endfor %}
+                           {% endfor %}
+                           {% endif %}
+                             
     
                           
                           </tbody>
                         </table>
-                        <div class="text-white-50 small">#f6c23e</div>
+                        <div class="text-white-50 small"></div>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-6 mb-4">
                     <div class="card bg-success text-white shadow">
                       <div class="card-body">
-                       Success
-                        <div class="text-white-50 small">#e74a3b</div>
+                       
+                        <div class="text-white-50 small"></div>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-6 mb-4">
                     <div class="card bg-secondary text-white shadow">
                       <div class="card-body">
-                        Secondary
-                        <div class="text-white-50 small">#858796</div>
+                      
+                        <div class="text-white-50 small"></div>
                       </div>
                     </div>
                   </div>
@@ -284,7 +316,7 @@
                 <div class="card shadow mb-4" style="height: 70%;">
                   <!-- Card Header - Dropdown -->
                   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Ultimas modificaciones</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Ultimas modificaciones en productos</h6>
                   </div>
                   <!-- Card Body -->
                   <div class="card-body" >
@@ -299,18 +331,22 @@
                         </thead>
                         <tbody>
                           
+                          {% if user.is_superuser %}
+                                 
                           {% for item in um  %}
                           
                   
                           <tr>
                            
                             <td  scope="row" > {{item.nombre}}</td>
-                            <td> {{item.fc}}</td>
+                            <td> {{item.fm}}</td>
                             <td>{{item.um}}</td>
                    
                           </tr>
                     
                           {% endfor %}
+                          {% endif %}
+                       
   
                         
                         </tbody>
@@ -337,7 +373,7 @@
         <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright &copy; Your Website 2019</span>
+              <span></span>
             </div>
           </div>
         </footer>
@@ -359,15 +395,15 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Quieres salir?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-body">Presiona el boton para cerrar la sesion actual en este sistema</div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+            <a class="btn btn-primary" href="{%  url 'bases:logout' %}">Cerrar Sesion</a>
           </div>
         </div>
       </div>

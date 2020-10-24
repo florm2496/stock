@@ -11,52 +11,60 @@ from vino.views import VinoView
 from django.contrib import messages
 from vino.models import Vino
 from django.contrib.auth.decorators import login_required, permission_required
+from bases.views import SinPrivilegios
+from django.contrib.auth import authenticate
+from .models import FacturaDet , FacturaEnc
 # Create your views here.
-class ClienteView(PermissionRequiredMixin,generic.ListView):
+class ClienteView(SinPrivilegios,generic.ListView):
     model = Cliente
     template_name = "ventas/clientes.html"
     context_object_name = "obj"
     permission_required='ventas.view_cliente'
   
+class VistaBaseCreate(SuccessMessageMixin,SinPrivilegios, \
+    generic.CreateView):
+    context_object_name = 'obj'
+    success_message="Cliente creado exitosamente"
 
-class VistaBaseCreate(SuccessMessageMixin , generic.CreateView):
-    context_object_name='obj'
-    success_message='registro agregado con exito'
-
-    def form_valid(self , form):
-        form.instance.uc=self.request.user
+    def form_valid(self, form):
+        form.instance.uc = self.request.user
         return super().form_valid(form)
 
-class VistaBaseEdit(SuccessMessageMixin , generic.UpdateView):
-    context_object_name='obj'
-    success_message='registro editado con exito'
-    
-    def form_valid(self , form):
-        form.instance.um=self.request.user.id
+class VistaBaseEdit(SuccessMessageMixin,SinPrivilegios, \
+    generic.UpdateView):
+    context_object_name = 'obj'
+    success_message="Cliente modificado exitosamente"
+
+    def form_valid(self, form):
+        form.instance.um = self.request.user.id
         return super().form_valid(form)
 
 
-class ClienteNew(VistaBaseCreate):
+class ClienteNew(VistaBaseCreate,SinPrivilegios):
     model=Cliente
     template_name="ventas/cliente_form.html"
     form_class=ClienteForm
     success_url= reverse_lazy("ventas:clientes")
     permission_required='ventas.add_cliente'
+    success_message='Cliente creado exitosamente'
+    
+    def form_valid(self, form):
+        form.instance.uc = self.request.user
+        return super().form_valid(form)
     
 
 
-class ClienteEdit(VistaBaseEdit):
+class ClienteEdit(VistaBaseEdit,SinPrivilegios):
     model=Cliente
     template_name="ventas/cliente_form.html"
     form_class=ClienteForm
     success_url= reverse_lazy("ventas:clientes")
     permission_required='ventas.update_cliente'
-  
+    success_message='Cliente actualizado exitosamente'
 
 
 
-
-class VentaListView(PermissionRequiredMixin,generic.ListView):
+class VentaListView(SinPrivilegios,generic.ListView):
     model = FacturaEnc
     context_object_name='obj'
     template_name = "ventas/ventas.html"
@@ -73,7 +81,7 @@ def Ventas(request , id=None):
     }
     detalle={}
     clientes=Cliente.objects.filter(estado=True)
-
+    
 
     if request.method=='GET':
         enc=FacturaEnc.objects.filter(pk=id).first()
@@ -164,11 +172,36 @@ def Ventas(request , id=None):
 class VinoView(VinoView):
     template_name='ventas/buscar_producto.html'
 
+def borrar_detalle_factura(request, id):
+    template_name = "ventas/borrar_detalle.html"
 
-'''
-   ex=int(prod.existencia) 
-        cant=int(cantidad)
-        if ex <= cant:
-            print('no hay suficiente stock' ,ex , cant)
-           
-            return HttpResponse(request ,'error')'''
+    det = FacturaDet.objects.get(pk=id)
+
+    if request.method=="GET":
+        context={"det":det}
+
+    if request.method == "POST":
+        usr = request.POST.get("usuario")
+        pas = request.POST.get("pass")
+
+        user =authenticate(username=usr,password=pas)
+
+        if not user:
+            return HttpResponse("Usuario o Clave Incorrecta")
+        
+        if not user.is_active:
+            return HttpResponse("Usuario Inactivo")
+
+        if user.is_superuser or user.has_perm("ventas.sup_caja_facturadet"):
+            det.id = None
+            det.cantidad = (-1 * det.cantidad)
+            det.sub_total = (-1 * det.sub_total)
+            det.descuento = (-1 * det.descuento)
+            det.total = (-1 * det.total)
+            det.save()
+
+            return HttpResponse("ok")
+
+        return HttpResponse("Usuario no autorizado")
+    
+    return render(request,template_name,context)

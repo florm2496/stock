@@ -31,7 +31,6 @@ class Vino(ClaseModelo2):
     descripcion=models.CharField(max_length=100 , blank=True ,null=True)
     codigo=models.CharField(max_length=30 ,unique=True)
     precioventa=models.FloatField()
-    foto=models.ImageField(blank=True, null=True)
     reserva=models.ForeignKey(Reserva , on_delete=models.CASCADE)
     bodega=models.ForeignKey(Bodega , on_delete=models.CASCADE)
     cepa=models.ForeignKey(Cepa, on_delete=models.CASCADE)

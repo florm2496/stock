@@ -106,7 +106,7 @@
                           
                           {% for error in field.errors %}
                         
-                            mensaje(  '{{ error|escape}}','icon');
+                            mensaje(  '{{ error|escape}}' ,'error');
                           {% endfor %}
                             
                             
@@ -120,7 +120,7 @@
                       
                       {% for error in form.non_field_errors  %}
                           
-                      mensaje(  '{{ error|escape}}','red');
+                      mensaje(  '{{ error|escape}}' , 'error');
                             
                           
                             

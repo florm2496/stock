@@ -15,9 +15,7 @@
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">ACCIONES:</div>
                       <a class="dropdown-item" href="{% url 'vino:cepanew' %}" ><i class="far fa-calendar-plus"></i> Nueva</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                     
                     </div>
                   </div>
                 </div>
@@ -44,7 +42,7 @@
      <th>Estado</th>
      <th>Usuario creador</th>
      
-    <th class="all">acciones</th>
+    <th class="all">Editar</th>
                     </thead>
 <tbody>
     
@@ -72,7 +70,7 @@
         <td>{{item.uc}}</td>
         <td>
             <a href="{% url 'vino:cepaupdate' item.id %} "class="btn btn-warning btn-circle " role="button" ><i class="far fa-edit"></i></a>
-            <a href="" class="btn btn-warning btn-circle " role="button" ><i class="far fa-trash-alt"></i></a>
+           
         </td>
     </tr> 
    

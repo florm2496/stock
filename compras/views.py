@@ -38,7 +38,7 @@ class ComprasView(PermissionRequiredMixin,generic.ListView):
 
 def compras(request,compra_id=None):
     template_name="compras/from2.html"
-    vino=Vino.objects.all()
+    vino=Vino.objects.filter(estado=True)
     print(vino)
     form_compras={}
     contexto={}

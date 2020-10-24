@@ -144,7 +144,7 @@
                     
                                            
                                                 <td>
-                                                    <button class="btn btn-danger btn-circle"  onclick="return abrir_modal('{% url 'compras:delete_detcompra' encabezado.pk item.id %}')" ><i class="fas fa-trash-alt"></i></button>
+                                                    <a class="btn btn-danger btn-circle"  onclick="return abrir_modal('{% url 'compras:delete_detcompra' encabezado.pk item.id %}')" ><i class="fas fa-trash-alt"></i></a>
                                                 </td>
                                                 </tr>
                                                 {% endfor %}
@@ -217,7 +217,7 @@ $('.table').DataTable({
                 e.preventDefault();
                 //alert("No ha agregado producto o está sin cantidades");
                 cadena='No ha agregado ' + mens
-                mensaje(cadena,'','warning')
+                mensaje(cadena,'error')
             }
             
         });
@@ -283,6 +283,7 @@ function selectProducto(nombre,codigo)
 
         
     }
+    
 
  
     </script>

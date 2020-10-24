@@ -15,9 +15,7 @@
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">ACCIONES:</div>
                       <a class="dropdown-item" onclick="return abrir_modal('{% url 'vino:crearvino' %}')">Nuevo</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                      
                     </div>
                   </div>
                 </div>
@@ -48,12 +46,12 @@
      <th data-sortable="true" data-field="bodega">Bodega</th>
      <th data-sortable="true" data-field="reserva">Reserva</th>
      <th data-sortable="true" data-field="cepa">Cepa</th>
-     <th data-sortable="true" >Medida</th>
+     <th data-sortable="true" >Estado</th>
      <th data-sortable="true" data-field="descripcion">Descripcion</th>
      <th data-sortable="true" >Precio</th>
      <th data-sortable="true">Existencia</th>
      <th data-sortable="true" >Ultimacompra</th>
-    <th class="all" >acciones</th>
+    <th class="all" >Editar</th>
                     </thead>
 <tbody>
     
@@ -65,7 +63,7 @@
         <td>{{item.bodega}}</td>
         <td>{{item.reserva}}</td>
         <td>{{item.cepa}}</td>
-        <td>{{item.unidad}}</td>
+        <td>{{item.estado|yesno:"Activo,Inactivo"}}</td>
         <td>{{item.descripcion}}</td>
         <td>{{item.precioventa}}</td>
         <td>{{item.existencia}}</td>
@@ -81,7 +79,7 @@
       
         <td>
           <button type="submit" class="btn btn-warning btn-circle " role="button" onclick="return abrir_modal('{%url 'vino:vinoupdate' item.id %} ')"><i class="far fa-edit"></i></button>
-            <a href="" class="btn btn-warning btn-circle " role="button" ><i class="far fa-trash-alt"></i></a>
+          
         </td>
     </tr>
         

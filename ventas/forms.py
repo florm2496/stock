@@ -7,7 +7,8 @@ class ClienteForm(forms.ModelForm):
         model=Cliente
         fields=['nombre','tipo',
             'numero','email','direccion','estado']
-        exclude = ['um','fm','uc','fc']
+        exclude = ['um','fm','fc']
+        
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -15,3 +16,6 @@ class ClienteForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
+            self.fields['numero'].widget.attrs['requiered']=False
+            self.fields['email'].widget.attrs['requiered']=False
+            self.fields['direccion'].widget.attrs['requiered']=False

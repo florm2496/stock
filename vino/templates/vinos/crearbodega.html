@@ -18,35 +18,11 @@
                         {% if obj %} Editar {% else %} Nueva {% endif %} Bodega
                     </div>
                     <div class="dropdown-divider"></div>
-                    <div class="row">
-                        <div class="col-10">
-                            <div class="input-group">
-                                <input type="text" name="nombre" maxlength="100" class="form-control m-1" required id="id_nombre" placeholder="Nombre"
-                                value="{% if obj %} {{ obj.nombre}} {% endif %}">
-                            </div>
-                        </div>
-                        <div class="col-10">
-                            <div class="input-group ">
-                                <input type="text" name="numero" maxlength="100" class="form-control m-1" required id="id_numero" placeholder="Numero"
-                                value="{% if obj %} {{ obj.numero  }} {% endif %}">
-                            </div>
-                        </div> 
-                        <div class="col-10">
-                            <div class="input-group ">
-                                <input type="text" name="email" maxlength="100" class="form-control m-1" required id="id_email" placeholder="Email"
-                                value="{% if obj %} {{ obj.email}} {% endif %}">
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="form-group m-1">
-                                <label for="id_estado">Estado</label>
-                                <input type="checkbox" name="estado" class="form-control" id="id_estado"
-                                {% if obj.estado %} checked 
-                                {% endif %}  >
-                            </div>
-                        </div> 
-                      
-                    </div>
+                    {% csrf_token %}
+<div class="row">
+    
+    {{form.as_p}}
+</div>
                     <div class="dropdown-divider"></div>
                     <div class="row">
                         <div class="col">

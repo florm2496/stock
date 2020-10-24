@@ -53,10 +53,7 @@
                                     <div class="col-md-6">{{form.precioventa}}</div>
                                 </div>
     
-                                <div class="col-md-6">
-                                    <div class="col-md-6">{{form.foto.label}}</div>
-                                    <div class="col-md-6">{{form.foto}}</div>    
-                                </div>                            
+                                                     
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -185,8 +182,11 @@
                     alert(textSatatus);
                 }
      }).fail( function (error){
-         mensaje=error.responseText.trim()
-         alert(mensaje);
+         mens=error.responseText
+         if (mens!=null){
+             mensaje('Faltan campos por completar o ya existe un producto con ese codigo' , 'error')
+                return false;
+         }
      });
      });
  });
