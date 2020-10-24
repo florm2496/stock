@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+{% extends 'base.html' %}
 
 
 {% block page_content %}
@@ -15,38 +15,37 @@
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        {% if obj %} Editar {% else %} Nueva {% endif %} Reserva
+                        {% if obj %} Editar {% else %} Nueva {% endif %} Cepa
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="row">
                         <div class="col-10">
-                            <div class="input-group ">
-                                <input type="text" name="tipo" maxlength="100" class="form-control m-1" required id="id_tipo" placeholder="Tipo"
-                                value="{% if obj %} {{ obj.tipo }} {% endif %}">
+                            <div class="input-group">
+                                <input type="text" name="nombre" maxlength="100" class="form-control" required id="id_nombre" placeholder="Nombre"
+                                value="{% if obj %} {{ obj.nombre}} {% endif %}">
                             </div>
-                        </div> 
-                        <div class="col-10">
-                            <div class="input-group ">
-                                <input type="text" name="descripcion" maxlength="100" class="form-control m-1" required id="id_descripcion" placeholder="Descripcion"
-                                value="{% if obj %} {{ obj.descripcion }} {% endif %}">
-                            </div>
-
                         </div>
                         <div class="col-2">
                             <div class="form-group m-1">
                                 <label for="id_estado">Estado</label>
                                 <input type="checkbox" name="estado" class="form-control" id="id_estado"
-                                {% if obj.estado %} checked {% endif %}  >
+                                {% if obj.estado %} checked 
+                                {% endif %}  >
                             </div>
                         </div> 
-                      
+                        <div class="col-10">
+                            <div class="input-group">
+                                <input type="text" name="descripcion" maxlength="100" class="form-control" required id="id_descripcion" placeholder="Descripción"
+                                value="{% if obj %} {{ obj.descripcion }} {% endif %}">
+                            </div>
+                        </div>
                       
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="row">
                         <div class="col">
                             <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                            <a href="{% url 'vino:reservas' %}" class="btn btn-success"><span class="fa fa-undo"></span>Cancelar</a>
+                            <a href="{% url 'vino:cepas' %}" class="btn btn-success"><span class="fa fa-undo"></span>Cancelar</a>
                         </div>
                     </div>
                 </div>
@@ -57,3 +56,8 @@
 </form>
 
   {% endblock page_content %}
+    
+  {% block js_page %}
+      
+  {% endblock js_page %}
+ 

@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+{% extends 'base.html' %}
 
 {% block page_content %}
 <div class="card shadow mb-4">
@@ -38,6 +38,7 @@
         <th data-sortable="true" data-field="fecha" >Fecha</th>
         <th data-field="observacion" >Observación</th>
         <th data-sortable="total" data-field="total"   >Total</th>
+        <th>Realizada por </th>
       
         <th class="all">Acciones</th>
       </thead>
@@ -48,6 +49,7 @@
           <td>{{ item.fecha_compra }}</td>
           <td>{{item.observacion}}</td>
           <td>{{ item.total }}</td>
+          <td>{{item.uc}}</td>
           <!--<td>{{item.estado|yesno:"Activo,Inactivo"}}</td> --> 
           <td>
             <a class="btn btn-warning btn-circle" href="{% url 'compras:editarcompra' item.pk %}"><i class="far fa-edit"></i></a>

@@ -1,4 +1,4 @@
-{% extends 'base/base.html'%}
+{% extends 'base.html'%}
 {% block page_content %}
     <form method="post" id="frmCompras">
         {% csrf_token %}
@@ -126,7 +126,8 @@
                                     <div class="col">
                                         <table class="table table-striped table-hover dt-responsive nowrap" style="width:100%">
                                             <thead>
-                                                <th>Vino</th>        
+                                                <th>Vino</th>   
+                                                <th>Codigo</th>     
                                                 <th>Cantidad</th>
                                                 <th>Precio</th>
                                                 <th>Sub Total</th>
@@ -138,6 +139,7 @@
                                                 {% for item in detalle %}
                                                 <tr>
                                                 <td>{{item.vino}}</td>
+                                                <td>{{item.vino.codigo}}</td>
                                                 <td>{{item.cantidad}}</td>
                                                 <td>{{item.precio}}</td>
                                                 <td>{{item.sub_total}}</td>

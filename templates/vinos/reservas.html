@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+{% extends 'base.html' %}
 
 
 {% block page_content %}
@@ -41,7 +41,8 @@
           <th data-sortable="true" data-field="nombre">Nombre</th>
      <th data-sortable="true" data-field="descripcion" >Descripcion</th>
      <th data-sortable="true">Estado</th>
-     <th data-sortable="true">Usuario creador</th>
+     <th >Usuario creador</th>
+                      <th>Ultima modificacion</th>
     <th class="all">acciones</th>
                     </thead>
 <tbody>
@@ -60,6 +61,9 @@
             
         </td>
         <td>{{reserva.uc}}</td>
+        <td> {{reserva.fm}}
+          {{reserva.um}}
+        </td>
         <td>
             <a href="{% url 'vino:reservaupdate' reserva.id %}" class="btn btn-warning btn-circle " role="button" ><i class="far fa-edit"></i></a>
             

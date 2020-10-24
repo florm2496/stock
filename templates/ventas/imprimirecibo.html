@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Listado de Compras</title>
+    <title>Recibo</title>
     <link rel="stylesheet" href="{% static 'base/css/recibo.css' %}">
     <style type="text/css">
        @page {
@@ -23,13 +23,13 @@
         <center>
             <b class="text-center">Vinoteca</b><br> 
             <small>Direccion</small><br>
-            <small>FACTURA No. {{enc.factura}}</small><br>
+            
         </center>
         <small>
             <br>
             <b>Factura No.:</b>&nbsp;&nbsp;{{enc.id}}&nbsp;&nbsp;
             <b>Fecha Fact:</b>&nbsp;&nbsp;{{enc.fecha}}&nbsp;&nbsp; <br>
-            <b>Cliente:</b>&nbsp;&nbsp;{{enc.cliente.id}}&nbsp;&nbsp;- {{enc.cliente}}<br>
+            <b>Cliente:</b>&nbsp;&nbsp; {{enc.cliente}}<br>
             <br><br>
         </small>
         <table class="table table-condensed table-sm" width="60%">

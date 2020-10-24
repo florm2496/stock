@@ -6,7 +6,7 @@
 *.pot
 *.pyc
 __pycache__/
-local_settings.py
+local.py
 db.sqlite3
 db.sqlite3-journal
 media
@@ -153,6 +153,10 @@ dmypy.json
 !.vscode/extensions.json
 *.code-workspace
 
+app/applications/ventas/migrations/*
+app/applications/compras/migrations/*
+app/applications/vinos/migrations/*
+app/applications/bases/migrations/*
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
