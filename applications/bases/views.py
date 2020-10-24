@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.views import generic
 from django.http import HttpResponseRedirect, JsonResponse
 from django.db.models import Sum ,Q
-from ventas.models import FacturaEnc , FacturaDet ,Cliente
-from vino.models import Vino
+from applications.ventas.models import FacturaEnc , FacturaDet ,Cliente
+from applications.vino.models import Vino
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 # Create your views here.

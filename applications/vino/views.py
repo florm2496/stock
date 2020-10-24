@@ -8,7 +8,7 @@ from .forms import CepaNewForm ,ReservaNewForm,UnidadNewForm,VinoNewForm ,Bodega
 from django.urls import reverse_lazy
 #,BodegaNewForm 
 from django.http import HttpResponse, JsonResponse
-from bases.views import SinPrivilegios
+from applications.bases.views import SinPrivilegios
 
 
 class MixinFormInvalid():

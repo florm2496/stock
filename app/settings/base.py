@@ -23,12 +23,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bases',
-    'vino',
-    'compras',
-    'ventas',
+    'applications.bases',
+    'applications.vino',
+    'applications.compras',
+    'applications.ventas',
     'rest_framework',
-    'apis',
+    'applications.apis',
     'django_userforeignkey',
     
 ]

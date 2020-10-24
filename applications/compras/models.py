@@ -7,8 +7,8 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.db.models import Sum
 
-from bases.models import ClaseModelo
-from vino.models import Vino
+from applications.bases.models import ClaseModelo
+from applications.vino.models import Vino
 
 
 

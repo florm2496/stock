@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from vino.models import Vino
+from applications.vino.models import Vino
 
 class VinoSerializer(serializers.ModelSerializer):
     class Meta:

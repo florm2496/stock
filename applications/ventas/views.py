@@ -7,11 +7,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin ,PermissionRequiredMixin
 from django.http import HttpResponse
 from datetime import datetime
-from vino.views import VinoView
+from applications.vino.views import VinoView
 from django.contrib import messages
-from vino.models import Vino
+from applications.vino.models import Vino
 from django.contrib.auth.decorators import login_required, permission_required
-from bases.views import SinPrivilegios
+from applications.bases.views import SinPrivilegios
 from django.contrib.auth import authenticate
 from .models import FacturaDet , FacturaEnc
 # Create your views here.

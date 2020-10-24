@@ -1,5 +1,5 @@
 from django.db import models
-from bases.models import ClaseModelo2 , ClaseModelo
+from applications.bases.models import ClaseModelo2 , ClaseModelo
 
 
 class Unidad(ClaseModelo2):

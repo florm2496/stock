@@ -18,7 +18,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .models import ComprasEnc, ComprasDet
 from .forms import ComprasEncForm
 #from bases.views import SinPrivilegios
-from vino.models import Vino
+from applications.vino.models import Vino
 
 
 

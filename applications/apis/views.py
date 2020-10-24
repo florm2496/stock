@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 
 
 from .serializers import VinoSerializer
-from vino.models import Vino
+from applications.vino.models import Vino
 
 class VinoList(APIView):
     def get(self,request):
