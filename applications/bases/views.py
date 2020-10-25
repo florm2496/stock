@@ -55,7 +55,7 @@ def Dashboard(request):
     users=User.objects.all()
     client=Cliente.objects.all().count()
     
-    mv=FacturaDet.objects.values('vino__nombre').annotate(Sum('cantidad'))
+    mv=FacturaDet.objects.values('vino__nombre' ,'vino__codigo').annotate(Sum('cantidad'))
     sinstock=Vino.objects.filter(existencia=0)
 
    

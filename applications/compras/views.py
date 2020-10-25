@@ -14,7 +14,7 @@ from django.http import HttpResponse
 import json
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required, permission_required
-
+from applications.bases.views import SinPrivilegios
 from .models import ComprasEnc, ComprasDet
 from .forms import ComprasEncForm
 #from bases.views import SinPrivilegios
@@ -23,19 +23,16 @@ from applications.vino.models import Vino
 
 
 
-class ComprasView(PermissionRequiredMixin,generic.ListView):
+class ComprasView(SinPrivilegios,generic.ListView):
     model = ComprasEnc
     template_name = "compras/listacompras.html"
     context_object_name = "obj"
     permission_required='compras.view_comprasenc'
+    
 
 
-
-
-
-@login_required(login_url="/login/")
-@permission_required("compras.view_comprasenc",login_url="/login/")
-
+@login_required(login_url='/login/')
+@permission_required('cmp.view_comprasenc', login_url='bases:sin_privilegios')
 def compras(request,compra_id=None):
     template_name="compras/from2.html"
     vino=Vino.objects.filter(estado=True)

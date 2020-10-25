@@ -143,7 +143,7 @@
                             <tr>
                               <th scope="col">#</th>
                               <th scope="col">Nombre</th>
-                              <th scope="col">codigo</th>
+                              <th scope="col">Codigo</th>
                               <th scope="col">Cantidad</th>
                           
                             </tr>
@@ -188,6 +188,7 @@
                           <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
+                            <th scope="col">Codigo</th>
                             <th scope="col">Cantidad</th>
                         
                           </tr>
@@ -198,7 +199,8 @@
                           {% for item in ss  %}
                           <tr>
                             <th scope="row"> {{ forloop.counter }} </th>
-                            <td> {{item.descripcion}}</td>
+                            <td> {{item}}</td>
+                            <td>{{item.codigo}}</td>
                             <td> {{item.existencia}}</td>
                    
                           </tr>
@@ -224,6 +226,7 @@
                               <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Codigo</th>
                                 <th scope="col">Cantidad</th>
                 
                               </tr>
@@ -237,6 +240,7 @@
                               <tr>
                                 <th scope="row"> {{ forloop.counter }} </th>
                                 <td> {{item}}</td>
+                                <td>{{item.codigo}}</td>
                                 <td> {{item.existencia}}</td>
                        
                               </tr>
@@ -263,6 +267,7 @@
                             <tr>
                               <th scope="col">#</th>
                               <th scope="col">Nombre</th>
+                              <th scope="col">Codigo</th>
                               <th scope="col">Fecha</th>
               
                             </tr>
@@ -277,6 +282,7 @@
                            <tr>
                              <th scope="row"> {{ forloop.counter }} </th>
                              <td> {{item.nombre}}</td>
+                             <td> {{item.codigo}}</td>
                              <td> {{item.fc}}</td>
                     
                            </tr>
@@ -292,21 +298,21 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 mb-4">
+                 <!-- <div class="col-lg-6 mb-4">
                     <div class="card bg-success text-white shadow">
                       <div class="card-body">
                        
                         <div class="text-white-50 small"></div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-secondary text-white shadow">
+                  </div>   <div class="card bg-secondary text-white shadow">
                       <div class="card-body">
                       
                         <div class="text-white-50 small"></div>
                       </div>
-                    </div>
+                    </div>   -->
+                  <div class="col-lg-6 mb-4">
+                   
                   </div>
                 </div>
               </div>

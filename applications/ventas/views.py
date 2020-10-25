@@ -69,10 +69,12 @@ class VentaListView(SinPrivilegios,generic.ListView):
     context_object_name='obj'
     template_name = "ventas/ventas.html"
     permission_required='ventas.view_facturaenc'
+    facs=FacturaEnc.objects.values('fecha')
+    print(facs)
 
 #VISTA DE FUNCIONES
 @login_required(login_url="/login/")
-@permission_required("ventas.view_facturaenc",login_url="/login/")
+@permission_required("ventas.view_facturaenc",login_url="bases:sin_privilegios")
 
 def Ventas(request , id=None):
     template_name='ventas/venta_form.html'

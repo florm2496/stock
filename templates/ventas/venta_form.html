@@ -5,8 +5,7 @@
     {% csrf_token %}
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <a href="#" type="button" class="btn btn-danger">Guardar</a>
-        <a href="" class="btn btn-success" target="_factura">Imprimir</a>
+      
         <a href="{% url 'ventas:ventas' %}" class="btn btn-info">Cancelar</a>
     </div>
     <div class="card-body">
