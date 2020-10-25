@@ -1,6 +1,7 @@
 from unipath import Path
+from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = Path(__file__).ancestor(3)
-
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 #BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -10,7 +11,18 @@ BASE_DIR = Path(__file__).ancestor(3)
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'rxd@m^)t-ty1xnt(h&-tt52zvr_vu$mf=#bv)c8t%@6xg#9=i1'
+
+with open("secret.json") as f:
+    secret = json.loads(f.read())
+
+def get_secret(secret_name , secrets=secret):
+    try:
+        return secrets[secret_name]
+    except:
+        msg="la variable %s no existe" % secret_name
+        raise ImproperlyConfigured(msg)
+
+SECRET_KEY = get_secret('SECRET_KEY')
 
 
 
