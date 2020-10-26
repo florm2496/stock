@@ -70,7 +70,7 @@ class VentaListView(SinPrivilegios,generic.ListView):
     template_name = "ventas/ventas.html"
     permission_required='ventas.view_facturaenc'
     facs=FacturaEnc.objects.values('fecha')
-    print(facs)
+    
 
 #VISTA DE FUNCIONES
 @login_required(login_url="/login/")
