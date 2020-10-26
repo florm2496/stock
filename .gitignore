@@ -154,10 +154,7 @@ dmypy.json
 !.vscode/extensions.json
 *.code-workspace
 
-applications/ventas/migrations/*
-applications/compras/migrations/*
-applications/vinos/migrations/*
-applications/bases/migrations/*
+
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
