@@ -93,7 +93,7 @@ class ReservaNew(SinPrivilegios,SuccessMessageMixin,CreateView):
     success_url=reverse_lazy('vino:reservas')
     login_url='bases:login'
     permission_required='vino.add_reserva'
-    success_message='Reserva creada exitosamente'
+    success_message='Categoria creada exitosamente'
 class ReservaUpdate(SuccessMessageMixin,SinPrivilegios,UpdateView):
     model=Reserva
     form_class=ReservaNewForm
@@ -102,7 +102,7 @@ class ReservaUpdate(SuccessMessageMixin,SinPrivilegios,UpdateView):
     success_url=reverse_lazy('vino:reservas')
     login_url='bases:login'
     permission_required='vino.change_reserva'
-    success_message='Reserva editada exitosamente'
+    success_message='Categoria editada exitosamente'
     #permission_required='vino.delete_reserva'
 
 class UnidadView(SuccessMessageMixin,SinPrivilegios,ListView):
@@ -147,7 +147,7 @@ class VinoNew(SuccessMessageMixin,MixinFormInvalid,SinPrivilegios,CreateView):
     success_url=reverse_lazy('vino:vinos')
     login_url='bases:login'
     permission_required='vino.add_vino'
-    success_message='Vino creado exitosamente'
+    success_message='Producto creado exitosamente'
 
     def form_valid(self, form):
         form.instance.uc = self.request.user
@@ -170,7 +170,7 @@ class VinoUpdate(SuccessMessageMixin, MixinFormInvalid,SinPrivilegios,UpdateView
     success_url=reverse_lazy('vino:vinos')
     login_url='bases:login'
     permission_required='vino.change_vino'
-    success_message='Vino editado exitosamente'
+    success_message='Producto editado exitosamente'
     #permission_required='vino.delete_vino'
     def form_valid(self, form):
         form.instance.uc = self.request.user

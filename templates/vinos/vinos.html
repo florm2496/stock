@@ -7,7 +7,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">LISTADO DE VINOS</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">LISTADO DE PRODUCTOS</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -43,13 +43,13 @@
                   <thead>
                          <th data-sortable="true" data-field="nombre" >nombre</th>
      <th data-sortable="true" data-field="codigo">Codigo</th>
-     <th data-sortable="true" data-field="bodega">Bodega</th>
-     <th data-sortable="true" data-field="reserva">Reserva</th>
-     <th data-sortable="true" data-field="cepa">Cepa</th>
-     <th data-sortable="true" >Estado</th>
+  
+     <th data-sortable="true" data-field="reserva">Categoria</th>
+    
      <th data-sortable="true" data-field="descripcion">Descripcion</th>
      <th data-sortable="true" >Precio</th>
      <th data-sortable="true">Existencia</th>
+     <th data-sortable="true">Unidad</th>
      <th data-sortable="true" >Ultimacompra</th>
     <th class="all" >Editar</th>
                     </thead>
@@ -60,13 +60,13 @@
      
         <td>{{item.nombre}}</td>
         <td>{{item.codigo}}</td>
-        <td>{{item.bodega}}</td>
+
         <td>{{item.reserva}}</td>
-        <td>{{item.cepa}}</td>
-        <td>{{item.estado|yesno:"Activo,Inactivo"}}</td>
+
         <td>{{item.descripcion}}</td>
         <td>{{item.precioventa}}</td>
         <td>{{item.existencia}}</td>
+        <td>{{item.unidad}}</td>
         <td>
           
           {% if item.ultimacompra %}

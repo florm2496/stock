@@ -28,7 +28,7 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR.child('static')]
-
+STATIC_ROOT=BASE_DIR.child('staticfiles')
 #STATICFILES_DIRS=(os.path.join(BASE_DIR,'static'),)
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'

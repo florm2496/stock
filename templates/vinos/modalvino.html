@@ -1,4 +1,8 @@
-
+<style>
+.fornombre{
+    width: 20px;
+}
+</style>
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
@@ -19,15 +23,15 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                {% if obj %} Editar {% else %} Nuevo {% endif %} Vino
+                                {% if obj %} Editar {% else %} Nuevo {% endif %} Producto
                             </div>
                             <div class="dropdown-divider"></div>
                             {% csrf_token %}
                             <div class="row">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="col-md-6">{{form.nombre.label}}</div>
-                                        <div class="col-md-6">{{form.nombre}}</div>
+                                        <div class="col-md-6 ">{{form.nombre.label}}</div>
+                                        <div class="col-md-6 ">{{form.nombre}}</div>
                                     </div>
         
                                     <div class="col-md-6">
@@ -43,17 +47,17 @@
                                 </div>
     
                                 <div class="col-md-6">
-                                    <div class="col-md-3">{{form.estado.label}}</div>
-                                    <div class="col-md-3">{{form.estado}}</div>    
+                                    <div class="col-md-6">{{form.estado.label}}</div>
+                                    <div class="col-md-6">{{form.estado}}</div>    
                                 </div>                            
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="col-md-6">{{form.precioventa.label}}</div>
+                                    <div class="col-md-6">{{form.precioventa.label}}(por kg)</div>
                                     <div class="col-md-6">{{form.precioventa}}</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="col-md-6">{{form.existencia.label}}</div>
+                                    <div class="col-md-6">{{form.existencia.label}}(en kg)</div>
                                     <div class="col-md-6">{{form.existencia }}</div>
                                 </div>
     
@@ -61,7 +65,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="col-md-6">Stock minimo</div>
+                                    <div class="col-md-6">Stock minimo(en kg)</div>
                                     <div class="col-md-6">{{form.sm}}</div>
                                 </div>
     
@@ -74,38 +78,6 @@
                                
                                 <div class="col-md-6">
                                    
-                 
-                                </div>                            
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="col-md-6">Bodega</div>
-                                    <div class="col-md-6">
-                                        <select name="bodega" id="id_bodega" class="form-control from-control-sm">
-                                            <option value="0">-----------</option>
-                                            
-                                            {% for item in bodega  %}
-                                            <option value="{{item.id}}">{{item.nombre}}</option>
-                        
-                                            {% endfor %}
-                                                
-                                        </select>
-                                    </div>
-                                </div>
-    
-                                <div class="col-md-6">
-                                    <div class="col-md-6">Reserva</div>
-                                    <div class="col-md-6">
-                                        <select name="reserva" id="id_reserva" class="form-control from-control-sm">
-                                            <option value="0">-----------</option>
-                                            
-                                            {% for item in reserva  %}
-                                            <option value="{{item.id}}">{{item.tipo}}</option>
-                        
-                                            {% endfor %}
-                                                
-                                        </select>
-                                    </div>
                  
                                 </div>                            
                             </div>
@@ -126,13 +98,13 @@
                                 </div>
     
                                 <div class="col-md-6">
-                                    <div class="col-md-6">Cepa</div>
+                                    <div class="col-md-6">Categoria</div>
                                     <div class="col-md-6">
-                                        <select name="cepa" id="id_cepa" class="form-control from-control-sm">
+                                        <select name="reserva" id="id_reserva" class="form-control from-control-sm">
                                             <option value="0">-----------</option>
                                             
-                                            {% for item in cepa  %}
-                                            <option value="{{item.id}}">{{item.nombre}}</option>
+                                            {% for item in reserva  %}
+                                            <option value="{{item.id}}">{{item.tipo}}</option>
                         
                                             {% endfor %}
                                                 
@@ -141,6 +113,7 @@
                  
                                 </div>                            
                             </div>
+                        
                             <div class="dropdown-divider"></div>
                             <div class="row">
                                 <div class="col">

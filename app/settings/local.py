@@ -9,12 +9,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+print(SECRET_KEY)
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'app',
+        'NAME': 'carne',
         'HOST':'localhost',
         'PORT':'5432',
         'USER': 'florm2496',

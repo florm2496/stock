@@ -1,5 +1,5 @@
 from unipath import Path
-
+from decouple import config
 BASE_DIR = Path(__file__).ancestor(3)
 
 
@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).ancestor(3)
 
 
 
-SECRET_KEY = "rxd@m^)t-ty1xnt(h&-tt52zvr_vu$mf=#bv)c8t%@6xg#9=i1"
+SECRET_KEY = config('SECRET_KEY')
 
 
 
