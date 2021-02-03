@@ -4,21 +4,12 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).ancestor(3)
 
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 DEBUG=False
 
 ALLOWED_HOSTS=["127.0.0.1" ,"herokuapp.com"]
 
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = "rxd@m^)t-ty1xnt(h&-tt52zvr_vu$mf=#bv)c8t%@6xg#9=i1"
 
 
 
