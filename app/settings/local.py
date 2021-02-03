@@ -1,7 +1,8 @@
 
 
 from .base import *
-
+from decouple import config
+import dj_database_url
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
