@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).ancestor(2)
 
 DEBUG=False
 
-ALLOWED_HOSTS=['127.0.0.1','herokuapp.com']
+ALLOWED_HOSTS=['127.0.0.1','.herokuapp.com']
 
 
 SECRET_KEY = config('SECRET_KEY')
