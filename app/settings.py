@@ -1,6 +1,7 @@
 from unipath import Path
 from decouple import config
 import dj_database_url
+import os
 
 BASE_DIR = Path(__file__).ancestor(2)
 
@@ -112,9 +113,11 @@ USE_TZ = True
 
 TIME_ZONE='America/Argentina/Buenos_Aires'
 
+STATIC_ROOT=os.path.join(BASE_DIR ,'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR.child('static')]
-STATIC_ROOT=BASE_DIR.child('staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR ,'static'),)
+
+
 #STATICFILES_DIRS=(os.path.join(BASE_DIR,'static'),)
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
