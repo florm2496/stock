@@ -27,6 +27,6 @@ urlpatterns = [
     path('apis/',include(('applications.apis.urls' ,'apis'),namespace='apis')),
     
     
-]+ static(settings.STATIC_ROOT, document_root=settings.STATIC_ROOT)
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
