@@ -2,15 +2,25 @@ from unipath import Path
 from decouple import config
 import dj_database_url
 
-BASE_DIR = Path(__file__).ancestor(3)
+BASE_DIR = Path(__file__).ancestor(2)
 
 DEBUG=False
 
-ALLOWED_HOSTS=["127.0.0.1" ,"herokuapp.com"]
+ALLOWED_HOSTS=['127.0.0.1','herokuapp.com']
 
 
-SECRET_KEY = "rxd@m^)t-ty1xnt(h&-tt52zvr_vu$mf=#bv)c8t%@6xg#9=i1"
+SECRET_KEY = config('SECRET_KEY')
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'carne',
+        'HOST':'localhost',
+        'PORT':'5432',
+        'USER': 'florm2496',
+        'PASSWORD':'pan1994245',
+    }
+}
 
 
 # Application definition
@@ -109,6 +119,8 @@ STATIC_ROOT=BASE_DIR.child('staticfiles')
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
+
+#estas configuraciones se hicieron para el deploy en heroku
 STATIICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 db_from_env=dj_database_url.config(conn_max_age=500)
